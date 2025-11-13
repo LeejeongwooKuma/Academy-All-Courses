@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+.chk{width:20px; height: 20px}
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$("#btn").click(chkVal);//F.C.F
+});//ready
+
+function chkVal() {
+	//var chkArr=$(".chk");
+	var chkArr=$(".chk:checked"); //checked속성인 태그만 얻어옴.이렇게 하면 if 생략 가능. is()함수가 합쳐진 느낌. 
+	
+	var output="";
+	for(var i = 0; i < chkArr.length; i++) {
+		output+= $(chkArr[i]).val()+" ";
+	}
+//	for(var i = 0; i < chkArr.length; i++) {
+	//if($(chkArr[i]).is(":checked")){
+	//	output+= $(chkArr[i]).val()+" ";
+	//}//end if
+//}//end for
+$("#output").html(output);
+}//end chkVal
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	<label>관심언어</label>
+	<input type="checkbox" name="lang" class="chk" value="Java"/>Java
+	<input type="checkbox" name="lang" class="chk" value="C/C+"/>C/C+
+	<input type="checkbox" name="lang" class="chk" value="PyThon"/>PyThon
+	<input type="checkbox" name="lang" class="chk" value="JavaScript"/>JavaScript
+	<input type="checkbox" name="lang" class="chk" value="Go Lang"/>Go Lang
+	<input type="checkbox" name="lang" class="chk" value="도"/>도<br>
+	<input type="button" value="확인 값 얻기" class="btn btn-success" id="btn"/><br>
+	<div id="output"></div>
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

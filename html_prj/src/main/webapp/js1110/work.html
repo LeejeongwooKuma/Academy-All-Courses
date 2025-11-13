@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+.txtColor{color:red;}
+</style>
+<script type="text/javascript">
+var divNode;
+var obj;
+var jsonObj;
+var name;
+var age;
+window.onload=function() {
+	document.getElementById("btnInput").addEventListener("click",inputJSON);
+	document.getElementById("btnOutput").addEventListener("click",outputJSON);
+	divNode=document.getElementById("output");
+	obj=document.frm;
+}//onload
+
+function inputJSON() {
+	//1. JSONObject 생성
+	name = obj.name.value;
+	age = obj.age.value;
+	jsonObj={name:name,age:age};
+	//alert(jsonObj); //string -> 객체가 JSONObject(객체)가 되었음.
+	
+	//2.값 넣기
+	//alert(jsonObj.name);
+	//obj.name.value=jsonObj.name;
+	//obj.age.value=jsonObj.age;
+	//예외처리
+	if(obj.name.value=="" ) {
+	divNode.innerHTML=`<span class='txtColor'><strong>이름은 필수 입력</strong></span>`;
+	return;
+	}
+	if(obj.age.value=="" ) {
+	divNode.innerHTML=`<span class='txtColor'><strong>나이는 필수 입력<strong> </span>`;
+	return;
+	}
+	divNode.innerHTML=`<span ><strong>입력이 정상적으로 완료되었습니다.<strong> </span>`;
+}//inputJSON
+
+function outputJSON() {
+	if(name != undefined && age != undefined) {
+	divNode.innerHTML=`<marquee scrollamount='7'>이름 : ${jsonObj.name} 님 <br> 나이 : ${jsonObj.age} 살</marquee>`;
+	} else {
+		divNode.innerHTML=`<span class='txtColor'><strong>존재하지 않는 입력값이 있습니다. 확인하던가 말던가.<strong></span>`;
+	}//end if
+}//outputJSON
+
+
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<form name="frm">
+	<div id="container">
+	<div>
+		<label>이름</label> <input type="text" id="name" ><br/>
+		<label>나이</label> <input type="text" id="age">	<br/>
+		<input type="button" value="입력" id="btnInput" class="btn btn-primary">	
+		<input type="button" value="출력" id="btnOutput" class="btn btn-primary"> <br>
+	</div>
+	<div id="output" style="border: 1px solid #333; width:300px; height: 100px;">
+		
+	</div>
+	</div>
+	</form>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

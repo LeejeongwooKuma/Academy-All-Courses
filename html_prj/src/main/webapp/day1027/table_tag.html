@@ -1,0 +1,79 @@
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>테이블 연습</title>
+	</head>
+	<body>
+	<strong>테이블시작</strong>
+	<table border = "1">
+	<tr>
+		<td>이것이자바다.</td>
+		<td>데이터베이스 개론과 실습</td>
+	</tr>	
+	<tr>
+		<td>IT엔지니어를 위한</td>
+		<td>HTML5 웹 프로그래밍 입문</td>
+	</tr>
+	</table>
+	<br>
+	<strong>테이블 속성</strong>
+	<!-- background로 설정한 이미지는 이미지의 크기가 table의 크기보다 작다면 바둑판식으로 보여진다. -->
+	<table border = "1" width = "400" height = "300" bgcolor = "#E0E0E0"
+	background = "../day1024/images/seoul_map.png" bordercolor = "#FF0000" >
+	<tr>
+		<td>월요일</td>
+		<td>화요일</td>
+	</tr>
+	<tr>
+		<td>수요일</td>
+		<td>목요일</td>
+	</tr>
+	</table>
+	<br>
+	<strong>테이블 여백속성</strong>
+	<!-- cellpadding -> td내부 여백 -->
+	<table border = "1" cellpadding = "5" cellspacing = "0">
+	<tr>
+		<td>월요일</td>
+		<td>화요일</td>
+	</tr>
+	<tr>
+		<td>수요일</td>
+		<td>목요일</td>
+	</tr>
+	</table>
+	<br>
+	<strong>tr 속성</strong>
+	<!-- cellpadding -> td내부 여백 -->
+	<table border = "1" cellpadding = "5" cellspacing = "0" width = "400">
+	<!-- width속성을 사용할 수 없다. -->
+	<tr height = "30" bgcolor = "#71B75E" background = "../common/images/naver.png" align = "right" valign = "top">
+		<td>월요일</td>
+		<td>화요일</td>
+	</tr>
+	<tr height = 50 bgcolor = "#46964F"  align = "right" valign = "bottom">
+		<td>수요일</td>
+		<td>목요일</td>
+	</tr>
+	</table>
+	<br>
+	<strong>td 속성</strong>
+	<table border = "1" cellspacing = "0">
+	<!-- 속성은 상속이 되므로 자식 태그가 각각 가져야 할 값이 아니라면 부모 태그에 올려서 사용. -->
+	<tr height = "80" bgcolor = "#000000"> 
+		<td width = "100" ><font color = "#FFFFFF">월요일</font></td>
+		<td width = "300"><font color = "#FFFFFF">화요일</font></td>
+	</tr>
+	<tr height = "60">
+		<td align = "right" valign = "bottom">수요일</td>
+		<td align = "center" valign = "middle">목요일</td>
+	</tr>
+	<tr height = "60">
+		<td background="../common/images/naver.png">수요일</td>
+		<td background="../common/images/google.png">목요일</td>
+	</tr>
+	</table>
+	
+	</body>
+	</html>

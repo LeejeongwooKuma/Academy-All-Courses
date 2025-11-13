@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>웹브라우저에서 여러 HTML을 동시에 보여줄 때</title>
+</head>
+<body>
+<iframe src = "http://daum.net" width = "800" height = "500" 
+frameborder = "0" scrolling = "auto" name = "ifr"></iframe>
+<br>
+<a href = "a_tag.html" target = "ifr">a태그연습</a>
+<a href = "map.html" target = "ifr">맵연습</a>
+<a href = "http://daum.net" target = "ifr">초기화</a>
+<!-- 모든 site가 iframe으로 들어가지는 않는다. -->
+<a href = "http://google.com" target = "ifr">구글</a>
+<a href = "http://naver.com" target = "ifr">네이버</a>
+</body>
+</html>

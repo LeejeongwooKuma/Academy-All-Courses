@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+</style>
+<script type="text/javascript">
+
+function getNameValue() {
+	//1. frm을 변수에 저장
+	var fObj= document.frm;
+	//2. 값 얻기( value속성을 사용하여 값 얻기 )
+	var id=fObj.frm.id.value;
+	var name2=fObj.frm.name.value;
+	
+	//유효성 검증
+//	if( id.trim() == "") {
+	if( id.replace(/ /g,"") == "") {//정규식, 공백을 ""으로 처리하겠다.
+		alert("아이디는 필수 입력 입니다.");
+		return;
+	}//end if
+	
+	
+	alert("back-end로 입력값을 전송합니다.");
+}
+
+
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+		<form action="test.jsp" name="frm">
+			<label for="id">아이디</label> <input type="text" name="id"/><br>
+			<label for="name">이름</label> <input type="text" name="name"/><br>
+			
+			<input type="button" value="name속성 값 얻기" class="btn btn-success btn-sm"
+			onclick="getNameValue()"/>
+		</form>
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

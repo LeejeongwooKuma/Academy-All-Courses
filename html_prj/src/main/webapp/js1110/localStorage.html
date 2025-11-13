@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+</style>
+<script type="text/javascript">
+	//1. 스토리지 얻기.
+	let ss=window.sessionStorage;
+	let divNode;
+	var obj;
+	
+window.onload=function(){
+	document.getElementById("btnSetItem").addEventListener("click",setItem);
+	document.getElementById("btnGetItem").addEventListener("click",getItem);
+	document.getElementById("btnRemoveItem").addEventListener("click",removeItem);
+	
+	divNode=document.getElementById("output");
+	obj=document.frm;
+}
+
+function setItem() {
+	//입력값을 얻어와서 storage에 설정
+	var name=obj.name.value;
+	var age=obj.age.value;
+	var flag=obj.flag.value;
+	
+	//2.item 설정
+	ss.setItem("name",name);
+	ss.setItem("age",age);
+	ss.setItem("flag",flag);
+	
+	divNode.innerHTML="세션 스토리지에 값(아이템) 저장";
+}//setItem
+
+function getItem() {
+	//storage에 저장된 값을 HTML Form Control에 설정
+		
+	//아이템의 값 얻기
+	var name =ss.getItem("name");
+	var age =ss.getItem("age");
+	var flag =ss.getItem("flag");
+	if( name==null) {
+		alert("값을 먼저 입력해주세요.");
+		return;
+	}//end if
+	
+	//HTML Form Control에 값 설정
+	obj.name.value=name;
+	obj.age.value=age;
+	//obj.flag.value=flag;
+	//원래 이렇게 select해야하는데 크롬이 좋아져서 걍 value로 해도 됨.
+	for(var i=0; i < obj.flag.length; i++) {
+		if(obj.flag[i].value == flag){
+			obj.flag[i].selected=true;
+			break;
+		}//end if
+	}//end for
+	
+	//출력용 div에 얻은 값을 출력
+	divNode.innerHTML=`<ul><li>이름 : ${name}</li>
+						   <li>나이 : ${age}</li>
+						   <li>플래그 : ${flag}</li>
+						   </ul>
+	`;
+	
+}//getItem
+
+function removeItem() {
+	//ss.removeItem("name");
+	ss.clear();
+}//removeItem
+
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<form name="frm">
+	<div id="container">
+	<div>
+	<label>이름</label> <input type="text" name="name" id="name"><br/>
+	<label>나이</label> <input type="text" name="age" id="age"><br/>
+	<label>flag</label> <select name="flag" id="flag">
+						<option value="true">true</option>
+						<option value="false">false</option>
+						</select><br/>
+	</div>
+	<div>
+		<input type="button" value="localStorage 저장" class="btn btn-success"
+		id="btnSetItem"/>		
+		<input type="button" value="localStorage 값얻기" class="btn btn-primary"
+		id="btnGetItem"/>		
+		<input type="button" value="localStorage 값 삭제" class="btn btn-danger"
+		id="btnRemoveItem"/>		
+	</div>
+	<div id="output"></div>
+	</div>
+	</form>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

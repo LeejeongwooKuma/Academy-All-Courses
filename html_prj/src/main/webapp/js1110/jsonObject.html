@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+</style>
+<script type="text/javascript">
+var divNode;
+window.onload=function() {
+	document.getElementById("btnStrJSON").addEventListener("click",strJSON);
+	document.getElementById("btnJSONObj").addEventListener("click",useJSON);
+	divNode=document.getElementById("output");
+}//onload
+
+function strJSON() {
+	//1."문자열"로 JSONObject형태를 생성
+	var txt="{name:'탄지로',age:20,flag:true, func:function(){return('물의 호읍'); } }";
+	//alert(txt); //문자열 이므로 값이 그대로 출력된다.
+	
+	//2. eval 함수로 JSONObject으로 만들기.
+	var jsonObj=eval("("+ txt +")");
+	//alert(jsonObj); //string -> 객체가 JSONObject(객체)가 되었음.
+	
+	//JSONObject 값 추가 : 객체명.이름=값;
+	jsonObj.today="2025-11-10";
+
+	//JSONObject 값 삭제 : delete 객체명.이름;
+	delete jsonObj.name;
+	
+	
+	//3. parsing
+	output =`
+			<ul>
+				<li>이름 : ${jsonObj.name}</li>
+				<li>나이 : ${jsonObj.age}</li>
+				<li>flag : ${jsonObj.flag}</li>
+				<li>함수 : ${jsonObj.func()}</li>
+				<li>추가된값 : ${jsonObj.today}</li>
+			</ul>
+	`;
+	
+	//4.div에 설정
+	divNode.innerHTML=output;
+	
+}//strJSON
+
+function useJSON() {
+	//1. JSONObject 생성
+	var jsonObj={name:'젠이치',age:20,flag:true, func:function(){return('번개의 호읍'); }};
+	alert(jsonObj); //string -> 객체가 JSONObject(객체)가 되었음.
+	
+	//JSONObject 값 추가 : 객체명.이름=값;
+	jsonObj.today="2025-11-10";
+
+	//JSONObject 값 삭제 : delete 객체명.이름;
+	delete jsonObj.name;
+	
+	
+	//3. parsing
+	output =`
+			<ul>
+				<li>이름 : ${jsonObj.name}</li>
+				<li>나이 : ${jsonObj.age}</li>
+				<li>flag : ${jsonObj.flag}</li>
+				<li>함수 : ${jsonObj.func()}</li>
+				<li>추가된값 : ${jsonObj.today}</li>
+			</ul>
+	`;
+	
+	//4.div에 설정
+	divNode.innerHTML=output;
+	
+}//strJSON
+ 
+
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	<input type="button" value="string jsonObject" class="btn btn-success"
+		id="btnStrJSON"/>		
+		<input type="button" value="JSONObject 객체로 사용" class="btn btn-primary"
+		id="btnJSONObj"/>
+	</div>
+	<div id="output">
+	
+	</div>
+	<div>
+	
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

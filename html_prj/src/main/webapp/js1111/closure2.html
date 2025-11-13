@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+</style>
+<script type="text/javascript">
+function test() {
+	var name="민병조";
+	
+	function addr() {
+		return "서울시 강남구 역삼동";
+	}//end addr
+	return { na:name, ad:addr };//closure return
+}//end test
+
+//closure를 만들면서 호출하면 저장할 수 있도록 anonymous function으로 작성한다.
+//test2는 closure이다.
+var test2=function() {
+	var name="민병조";
+	
+	function addr() {
+		return "서울시 강남구 역삼동";
+	}//end addr
+	return { na:name, ad:addr };//closure return
+}();
+
+var test3=function(pramName) {
+	var name=pramName;
+	
+	function age(paramAge) {
+		var result="성년";
+		if(paramAge < 20) {
+			result="미성년자.";
+		}//end if
+		
+		return result;
+	}//end addr
+	return { na:name, age:age };//closure return
+}("임성우");
+
+function useClosure() {
+	//함수 외부에서는 함수 내부의 변수나 함수를 호출할 수 없다 => {} closure 사용
+	//함수 호출하면 반환되는 closure를 받아야한다.
+	/* var clo=test();
+	alert(clo.na);
+	alert(clo.ad()); */
+	alert(test().na);
+	alert(test().ad());
+}
+
+function useClosure2() {
+	//test2는 자신함수를 호출한 뒤 리턴되는 closure를 저장했기 때문에 () 없이 함수내부의
+	//변수(na) 함수 ad()를 사용할 수 있게 된다.
+	alert(test2.na);
+	alert(test2.ad());
+}
+
+function useClosure3() {
+	//test3는 자신함수를 이름과 나이를 할당하여 호출한 뒤 리턴되는 closure를 저장했기 때문에 () 없이 함수내부의
+	//변수(na) 함수 ad()를 사용할 수 있게 된다.
+	alert(test3.na);
+	alert(test3.age(19));
+}
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	<input type="button" value="클릭" class="btn btn-success"
+	onclick="useClosure();"/>
+	<input type="button" value="클릭2" class="btn btn-success"
+	onclick="useClosure2();"/>
+	<input type="button" value="클릭3" class="btn btn-success"
+	onclick="useClosure3();"/>
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

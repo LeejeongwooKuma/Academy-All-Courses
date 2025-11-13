@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+</style>
+<script type="text/javascript">
+function setChecked() {
+	//폼을 얻고
+	var obj = document.frm;
+	//메일 체크박스들을 반복
+	for (var i = 0; i < obj.chk.length; i++) {
+		//flag체그박스의 확인상태로 모든 checkbox를 설정한다.
+		obj.chk[i].checked=obj.flag.checked;
+	}
+}
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div style="width: 880px">
+<form name = "frm">
+	<table class="table table-hover">
+	<thead>
+	<tr>
+	<th style="width: 80px">
+		<input type="checkbox" name="flag" onclick="setChecked()"/>
+	</th>
+	<th style="width: 500px">제목</th>
+	<th style="width: 150px">발신</th>
+	<th style="width: 150px">수신일</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+		<input type="checkbox" name="chk" value="10">
+	</td>
+	<td>고객님께서는 무담보로 500원까지 가능하십니다.</td>
+	<td>쌍용민실장</td>
+	<td>2025-11-06</td>
+	</tr>
+	<tr>
+	<td>
+		<input type="checkbox" name="chk" value="9">
+	</td>
+	<td>더우시죠? 푸른바다 고래이야기</td>
+	<td>쌍용이실장</td>
+	<td>2025-11-05</td>
+	</tr>
+	<tr>
+	<td>
+		<input type="checkbox" name="chk" value="8">
+	</td>
+	<td>단타 놀이터 수익 500% 보장 캄보디아</td>
+	<td>가자 민실장</td>
+	<td>2025-11-05</td>
+	</tr>
+	<tr>
+	<td>
+		<input type="checkbox" name="chk" value="7">
+	</td>
+	<td>단타 노리터 수익 50% 보장!!</td>
+	<td>캄보디아 민팀장</td>
+	<td>2025-11-05</td>
+	</tr>
+	</tbody>
+	</table>
+</form>
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

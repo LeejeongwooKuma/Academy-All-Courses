@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	//btn에 이벤트를 발생시켜서 useSelect함수를 호출
+	$("#btn").click(useSelect);
+});//ready
+
+function useSelect() {
+/* 	//eq속성 ( 입력된 인덱스에 해당하는 태그를 찾는 속성)
+//	alert($("#loc option:eq(0)").is(":selected"));
+	//alert($("#loc option:eq(0)").val());
+	var selArr=$("#loc option");//아이디가 loc인 태그의 모든 option을 가져와서
+	$.each(selArr,function(i, ele) {
+		if($(ele).is(":selected")) {//옵션중에 선택된 것이 있다면
+			alert( $(ele).val());//값을 얻어온다.
+		}//end if
+	}); */
+	
+	//eq사용
+	var selArr=$("#loc option");
+	for(var i = 0; i < selArr.length; i++) {
+		alert($("#loc option:eq("+i+")").is(":selected"));
+	}
+	
+}//useSelect
+
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	<select id="loc">
+	<option value="서울">서울</option>
+	<option value="경기">경기도</option>
+	<option value="충청도">충청도</option>
+	<option value="경상도">경상도</option>
+	<option value="전라도">전라도</option>
+	<option value="제주도">제주도</option>
+	</select>
+	
+	<input type="button" value="선택" class="btn btn-success" id="btn"/>
+	<div id="output"></div>
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

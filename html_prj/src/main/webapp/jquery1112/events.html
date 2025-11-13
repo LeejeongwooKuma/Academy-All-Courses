@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	//$("#btn").on("click",function(){
+	//	alert("버튼이 클릭되었습니다.");
+	//});
+	
+	//클릭
+	$("#btn").click(function(){
+		alert("버튼이 클릭!!!")
+	});
+	
+	//키 눌리면 반응
+	$("#name").keydown(function(evt){
+		alert("키가 눌렸어요"+evt.which+" / "+$("#name").val());
+		//눌른키의 코드는 얻지만 값은 나오지 않는다.(값이 1개 전 꺼가 나옴)
+	});
+	
+	//키 올라가면 반응 (down은 값이 바로 안 나오고 하나 지나서 나오는데 얘는 바로 나옴.)
+	$("#name2").keyup(function(evt){
+		alert("키가 올라옴"+evt.which+" / "+$("#name2").val());
+		//눌른키의 코드값과 txt에 입력된 값을 모두 얻을 수 있다.
+	});//keyup
+	
+	//100자까지만 입력 가능하게 제한하기
+	$("#txtArea").keyup(function(){
+		var txtLength = $("#txtArea").val().length;
+		if(txtLength > 9) {
+			alert("100자까지만 입력 가능합니다.");
+			$("txtArea").val( $("#txtArea").val().substring(0,10));
+		}//end if
+		$("#cnt").text(txtLength);
+	});//keyup
+	
+	//마우스 올라감
+	$("#img").mouseover(function(){
+		alert("마우스가 올라옴");
+	});//mouseover
+
+	//마우스 빠져나감
+	$("#img2").mouseout(function(){
+		alert("마우스가 빠져나감");
+	});//mouseover
+	
+	//커서 들어감
+	$("#name3").focusin(function(){
+	$("#output").html("커서가 들어감");
+	});//focusin
+	
+	//커서 나감
+	//$("#name4").focusout(function(){//.blur() 함수로 처리할 수 있다.
+	$("#name4").blur(function(){//.blur() 함수로 처리할 수 있다.
+	$("#output").html("커서가 나감");
+	});//focusout
+
+	//select 변하면 값 전달
+	$("#sel").change(function(){
+	$("#output").html($("#sel").val());
+	});//change
+
+	//클릭 -> 커서 자동 이동
+	$("#btn2").click(function(){
+	$("#txtArea").focus();//커서를 요청할 때 사용.
+	});//change
+
+	});//ready
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	<label>클릭할 때</label><input type="button" value="클릭" id="btn"/><br/>
+	<label>키가 눌를 때</label><input type="text" name="txt" id="name"/><br/>
+	<label>키가 올라올 때</label><input type="text" name="txt" id="name2"/><br/>
+	<div style="width:400px; text-align:right;">
+	<textarea style="width:400px;height:100px" id="txtArea"></textarea>
+	<span id="cnt">0</span>/100
+	</div>
+	
+	<label>마우스가 올라올 때</label>
+	<img src="../common/images/google.png" id="img"/><br>
+	<label>마우스가 나갔을 때</label>
+	<img src="../common/images/google.png" id="img2"/><br>
+
+	<label>커서가 들어갈 때</label>
+	<input type="text" name="txt" id="name3"/><br/>
+		
+	<label>커서가 나갔을 때</label>
+	<input type="text" name="txt" id="name4"/><br/>	
+	<div id="output"></div>
+
+
+	<label>다른 옵션이 선택</label>
+	<select id="sel">
+		<option value="Java">Java</option>
+		<option value="Oracle DBMS">Oracle DBMS</option>
+		<option value="HTML">HTML</option>
+		<option value="CSS">CSS</option>
+		<option value="JavaScript">JavaScript</option>
+		<option value="JavaScript Library">JavaScript Library</option>
+	</select>
+	<br>
+	<input type="button" value="커서요청" id="btn2"/><br>
+
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

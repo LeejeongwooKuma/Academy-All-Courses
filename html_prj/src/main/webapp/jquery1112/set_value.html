@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+		$("#btn").click(setValue);
+		$("#btn2").click(setAttr);//남자 checked
+		$("#btn3").click(setAttr2);//여자 checked
+		$("#img").mouseover(setImg);
+		$("#img").mouseout(setImg2);
+});//ready
+
+function setAttr() {
+	//라디오버튼에 checked가 존재하지 않으면 속성을 생성
+//	$("#m").attr("checked",true);//attr는 속성을 새로 만들어버려서 남자->여자 에서 다시 남자로 안 돌아가짐. 이미 생겨서 다시 갈려면 또 만들어야 하는데 못 만듬. 없을 때 만드는 것만 가능.
+	$("#m").prop("checked",true);//prop는 메모리상에서 만드는거라 남자->여자->남자 계속 가능
+}
+function setAttr2() {
+	//$("#f").attr("checked",true);
+	$("#f").prop("checked",true);
+}
+
+
+
+function setImg() {
+	$("#img").attr("src","../common/images/james.png");
+}
+function setImg2() {
+	$("#img").attr("src","../day1024/images/test_img.png");
+	
+}
+
+
+
+function setValue() {
+	//value 속성으로 값을 설정하는 Form Control은 val()로 값을 설정한다.
+	//div태그는 value 속성으로 값을 넣을 수 없다. 
+	//innerHTML이나 innerText로 값을 넣게된다.
+	//$("#output").val("안들어간다"); //안 들어가짐.
+	//$("#output").html("들어가진다."); //들어가짐.
+	
+	$("#name").val("민병조");
+	$("#pass").val("1234");
+	$("#ta").val("아집가고싶다.");
+	//$("#img").prop("src","../common/images/james.png");
+	$("#img").attr("src","../common/images/james.png");
+}
+
+
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	<input type="text" name="name" id="name"/><br>
+	<input type="password" name="pass" id="pass"/><br>
+	<textarea style="width:300px;height:100px;" id="ta"></textarea><br>
+	<img src="../day1024/images/test_img.png" id="img" style="width:100px;"><br>
+	<input type="radio" value="남자" name="gender" id="m">남자
+	<input type="radio" value="여자" name="gender" id="f">여자
+	<input type="button" value="남자선택" id="btn2" class="btn btn-primary ptn-sm"/>
+	<input type="button" value="여자선택" id="btn3" class="btn btn-primary ptn-sm"/><br>
+	<input type="button" value="값설정" id="btn" class="btn btn-primary ptn-sm"/><br>
+	</div>
+	<div id="output"></div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

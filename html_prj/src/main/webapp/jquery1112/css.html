@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+#output{ border: 1px solid #333; width: 400px; height: 200px; background-color:#BB841B;}
+#output2{ border: 1px solid #333;}
+
+.output{ border: 1px solid #333; width: 400px; height: 200px; background-color:#BB841B;}
+.output2{ width: 200px; height: 100px;}
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+function getCssValue(){
+	var output;
+	
+	output=$("#output").css("border")+"<br>";
+	output+=$("#output").css("width")+"<br>";
+	output+=$("#output").css("height")+"<br>";
+	output+=$("#output").css("background-color")+"<br>";
+	
+	if($("#output").css("width")=="400px") {
+		alert("크기가 마음에 들지 않는다.");
+		$("#output").css("width","200px");
+	}
+	
+	
+	$("#output2").html(output);
+}//getCssValue
+
+function setCssValue() {
+	$("#output2").css("height","100px");
+	$("#output2").css("width","500px");
+}//setCssValue
+
+function removeClass() {
+	//기존에 설정된 class 속성을 삭제
+	$("#useClass").removeClass("output");
+}//removeClass
+
+function addClass() {
+	//class속성 추가 : 삭제 후 추가하는 것이 아니라 기존에 있는 거 유지하면서 추가하는 것. -> 깨끗하게 하고 싶으면 삭제 후 추 가 해야함.
+	//removeClass();
+	//$("#useClass").addClass("output2");
+	
+	//chain class 문법 사용 가능
+	$("#useClass").removeClass("output").addClass("output2");
+}//removeClass
+
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	<input type="button" value="CSS속성값 얻기" class="btn btn-success" onclick="getCssValue()"/>
+	<input type="button" value="CSS속성값 설정" class="btn btn-info" onclick="setCssValue()"/>
+	<input type="button" value="class속성 삭제" class="btn btn-danger" onclick="removeClass()"/>
+	<input type="button" value="class속성 추가" class="btn btn-primary" onclick="addClass()"/>
+	</div>
+	<div id="output"></div>
+	<div id="output2"></div>
+	<div id="useClass"class="output">오늘은 11월 12일 입니다.</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

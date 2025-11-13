@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/>
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1200px; background-color: blue;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#mainSearch{ height: 75px; }
+#navi{ height: 75px; }
+#mainBar{ width: 1200px; height: 75px; }
+#container{  height: 900px; position: relative; }
+#mainAd{ width: 720px; height: 180px; position: absolute; top: 0px; left: 0px;  /* background-color: blue;  */ }
+#loginBox{ width: 480px; height: 180px; position: absolute; top: 0px; left: 720px; /* background-color: pink; */  }
+#mainNews{ width: 720px; height: 450px; position: absolute; top: 180px; left: 0px; /* background-color: black; */  }
+#shopping{ width: 480px; height: 720px; position: absolute; top: 180px; left: 720px; /* background-color: gray; */  }
+#cafe{ width: 720px; height: 270px; position: absolute; top: 630px; left: 0px; /* background-color: purple; */  }
+#mainAdImg{width: 720px; height: 180px;}
+#loginBoxImg{ width: 480px; height: 180px;}
+#mainNewsImg{width: 720px; height: 450px;}
+#shoppingImg{width: 480px; height: 720px;}
+#cafeImg{width: 720px; height: 270px;}
+
+#footer{  height: 150px; }
+#footerInfo{ height: 150px;}
+#footerInfoImg{height: 150px; width: 1200px;}
+
+</style>
+</head>
+<body>
+<div id="wrap">
+<!-- wrap 1200(w) x 1000(h) -->
+	<div id="header">
+		<div id="mainSearch"><img  src="images/main_search.png" id="mainBar"></div>
+		<div id="navi"><img src="images/navi_bar.png" id="mainBar"></div>
+	</div>
+	<div id="container"><!-- container 1200(w) x 700(h) -->
+		<div id="mainAd"><img src="images/main_ad.png" id="mainAdImg"></div>
+		<div id="loginBox"><img src="images/login_box.png" id="loginBoxImg"></div>
+		<div id="mainNews"><img src="images/main_news.png" id="mainNewsImg"></div>
+		<div id="shopping"><img src="images/showpping.png" id="shoppingImg"></div>
+		<div id="cafe"><img src="images/cafe.png" id="cafeImg"></div>
+	</div>
+	<div id="footer">
+		<div id="footerInfo"><img src="images/footer.png" id="footerInfoImg"></div>
+	</div>
+</div>
+</body>
+</html>

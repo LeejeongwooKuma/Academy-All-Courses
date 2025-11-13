@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 공통디자인 : 외부 파일 방식으로 -->
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/>
+<style type="text/css"> 
+/* 이 페이지에서만 사용하는 디자인 정의 */
+#agreement{border: 1px solid #E5E5E5; width: 1400px; height: 180px; overflow: auto; margin-bottom: 20px;}
+/* wrap을 가운데로 위치 */
+#wrap{ width: 1500px; margin: 0px auto;}
+.star{ color: #FF0000}
+#joinFrm{border-top: 4px solid #888888; border-spacing: 0px;}
+td,th{ border-bottom: 1px solid #E1E3E4;}
+tr{height: 40px;}
+.title{ background-color: #F9F8F8; width: 150px; font-weight: bold; font-size: 16px;}
+.input{ background-color: #FFFFFF; width: 1250px}
+
+#output{ border: 1px solid #333; width: 600px; height: 400px; overflow: auto;}
+</style>
+<script type="text/javascript">
+function getNameValue() {
+	//1. 폼을 얻고	
+	var obj=document.joinFrm;
+	//2. 값 얻기
+	//text,password,hidden,textarea,select은 .value로 얻는다.
+	var output="";
+	var intro= obj.intro.value.replaceAll("\n","<br>");
+	
+	output+=`text : <strong>${ obj.id.value }, ${ obj.email.value }, ${ obj.domain.value }</strong><br>`;
+	output+=`password : <strong>${ obj.pass.value }</strong><br>`;
+	output+=`date : <strong>${ obj.birth.value }</strong><br>`;
+	output+=`select : <strong>${ obj.loc.value }</strong><br>`;
+	output+=`hidden : <strong>${ obj.code.value }</strong><br>`;
+	output+=`file : <strong>${ obj.upfile.value }</strong><br>`;
+	output+=`textarea : <strong>${ intro }</strong><br>`;
+	
+	//name속성이 같은 값을 가진 객체 처리 => 배열로 처리
+	var hobby=obj.hobby;//배열로 저장
+	var checkedValue="";
+	for(var i = 0; i < hobby.length; i++) {
+		//alert( hobby[i].checked + " / " + hobby[i].value);//확인된 상태
+		//확인상태의 체크박스 값만 checkedValue에 할당
+		if(hobby[i].checked) {
+			checkedValue += hobby[i].value + " ";
+		}//end if	
+	}//end for
+	output+=`checkbox : <strong>${ checkedValue }</strong><br>`;
+	//alert(checkedValue);
+	
+	//내가 한거
+	/* //성별 체크박스 유효성 검사
+	var gender=obj.gender;//배열로 저장
+	var checkGender = false;
+	var checkedGender="";
+	for(var i = 0; i < gender.length; i++) {
+		if(gender[i].checked) { //라디오 버튼이 선택되어 있는가?
+			checkGender=true;
+			checkedGender+=gender[i].value;
+		}//end if
+	}//end for
+	if(!checkGender) {
+		alert("성별은 반드시 선택하셔야 합니다.");
+		return;
+	}//end if 
+	output+=`gender : <strong>${ checkedGender }</strong><br>`;*/
+	
+	//강사님이 한거
+	var gender="";
+	for(var i = 0; i < obj.gender.length; i++) {
+		if(obj.gender[i].checked) {
+			gender=obj.gender.value;
+		}
+	}
+	if(gender == "") {
+		alert("성별은 반드시 선택하셔야 합니다.");
+		return;
+	}//end if
+	output+=`gender : <strong>${ gender }</strong><br>`;	
+	
+	
+	
+	//select에 선택된 값 얻어오기
+	//select은 option이 배열로 들어간다.
+	//굳이 이렇게 안 하고 select에 value써도 얻어짐.. 방법이 있다만 보여주는 거
+	var locArr=obj.loc;
+	var selLoc="";
+	for( var i=0; i<locArr.length;i++) {
+		if(locArr[i].selected) {
+			selLoc=locArr[i].value;
+		}
+	}
+
+	output+=`select Arr : <strong>${ selLoc }</strong><br>`;	
+	
+	obj.img.src="images/dragon.png"
+	//alert(obj.img.src);
+	document.getElementById("output").innerHTML=output;
+	
+}//getNameValue
+
+</script>
+</head>
+<body>
+<div id="wrap">
+
+<hr/>
+<div id="joinFrmDiv">
+	<form name="joinFrm">
+	<table id="joinFrm">
+		<tr>
+			<td class="title"><label><span class="star">*</span>아이디</label></td>
+			<td class="input"><input type="text"  class="inputBox" name="id" value="test"/></td>
+		</tr>
+
+		<tr>
+			<td class="title"><label><span class="star">*</span>비밀번호</label></td>
+			<td class="input"><input type="password" class="inputBox" name="pass" value="min"/></td>
+		</tr>
+
+		<tr>
+			<td class="title"><label><span class="star">*</span>생일</label></td>
+			<td class="input"><input type="date" class="inputBox" value="2025-11-06" name="birth"/></td>
+		</tr>
+
+		<tr>
+			<td class="title"><label><span class="star">*</span>이메일</label></td>
+			<td class="input"><input type="text" name="email" style="width: 250px" class="inputBox" value="min"/>@ 
+			<input type="text" name="domain" list="domain" class="inputBox" value="han.net"><input type="checkbox" value="수신">수신
+				<datalist id="domain">
+					<option value="naver.com" />
+					<option value="daum.net" />
+					<option value="gmail.com" />
+					<option value="hotmail.com" />
+					<option value="nate.com" />
+					<option value="korea.com" />
+				</datalist>
+		</tr>
+
+		<tr>
+			<td class="title"><label><span class="star">*</span>성별</label></td>
+			<td class="input"><input type="radio" name="gender" value="남자"/>남자 <input
+				type="radio" name="gender" value="여자" />여자 <br /></td>
+		</tr>
+
+		<tr>
+			<td class="title"><label><span class="star">*</span>소재지</label></td>
+			<td class="input" ><select class="inputBox" name="loc" style="width: 120px; height: 25px;">
+					<option value="N/A">선택해주세요</option>
+					<option value="강원">강원</option>
+					<option value="경기">경기</option>
+					<option value="경남">경남</option>
+					<option value="경북">경북</option>
+					<option value="광주">광주</option>
+					<option value="대구">대구</option>
+					<option value="대전">대전</option>
+					<option value="부산">부산</option>
+					<option value="서울" selected="selected">서울</option>
+					<option value="울산">울산</option>
+					<option value="인천">인천</option>
+					<option value="전남">전남</option>
+					<option value="전북">전북</option>
+					<option value="제주">제주</option>
+					<option value="충남">충남</option>
+					<option value="충북">충북</option>
+					<option value="제주">제주</option>
+					<option value="해외">해외</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td class="title">취미</td>
+			<td>
+				<input type="checkbox" name="hobby" value="게임">게임
+				<input type="checkbox" name="hobby" value="운동">운동
+				<input type="checkbox" name="hobby" value="유튜브">유튜브
+				<input type="checkbox" name="hobby" value="음악감상">음악감상
+				<input type="checkbox" name="hobby" value="등산">등산
+			</td>
+		</tr>
+		<tr>
+			<td class="title">파일선택</td>
+			<td><input type="file" name="upfile"/></td>
+		</tr>
+		<tr>
+			<td class="title">소개</td>
+			<td><textarea name="intro" style="width: 400px; height: 100px">내소개</textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: center"> 
+			<input type="hidden" name="code" value="U3881">
+			<img src="images/dog.png" name="img">
+			<input type="button" value="값 얻기" class="btnBox"
+			onclick="getNameValue()"/>
+			</td>
+		</tr>
+	</table>
+	</form>
+	
+	<div id="output">뭔가 있다?!</div>
+</div>
+</div>
+</body>
+</html>

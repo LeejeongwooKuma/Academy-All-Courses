@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+</style>
+<script type="text/javascript">
+//느슨한 비교( == ) : 데이터 형은 달라도 값만 같으면 true.
+var num="11";
+var num2=11;
+var num3="11";
+console.log("==느슨한 비교 : ");
+console.log(num == num2); // true;
+console.log(num == num3); // true;
+console.log("===엄격한 비교 : ");
+console.log(num === num2); // false : 데이터 형과 값이 모두 같아야 true
+console.log(num === num3); // true
+
+console.log("!== 엄격한 비교 : ");
+console.log(num !== num2); // 값은 같으나 데이터 형이 달라서 true
+console.log("!== 엄격한 비교 : ");
+console.log(num !== num3); // 값과 데이터형이 같으므로 false
+num2="4";
+console.log(num !== num2); // 데이터 형은 같고 값이 다르면 true
+
+console.log("3 != 3 " + (3 != 3));
+console.log("3 ! == 3 " + (3 !== 3));
+console.log("'3' ! == 3 " + ("3"!== 3));
+
+prompt("값을 입력하세요?");
+
+
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

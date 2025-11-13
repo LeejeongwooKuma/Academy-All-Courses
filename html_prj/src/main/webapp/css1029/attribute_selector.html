@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+/* attribute selector */
+/* [type='text'] { font-size: 20px;} */
+[class='input'] { font-size: 20px; }
+/* class 속성에 디자인을 적용할 때에는 attribute selector보다 class selector를 사용 */
+/* .input {font-size: 20px} */
+[for='id'] { color:#FF0000 }
+</style>
+</head>
+<body>
+<label for="id">아이디</label><input type="text" name="id" class="input"/><br/>
+<label for="pass">비밀번호</label><input type="password" name="pass" class="input"/><br/>
+<label for="addr">주소</label><input type="text" name="addr" class="input"/><br/>
+<label for="addr2">상세주소</label><input type="text" name="addr2" class="input"/><br/>
+</body>
+</html>

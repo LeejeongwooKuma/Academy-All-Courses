@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1" cellspacing="0">
+<tr>
+<td>아이디</td><td width="50"><input type="text" readonly="readonly"/></td><td><input type="button" value="ID 중복확인"/></td>
+</tr>
+<tr>
+<td>비밀번호</td><td width="50"><input type="password"/></td><td>비밀번호 확인<input type="password"/></td>
+</tr>
+<tr>
+<td>이름</td><td width="50" colspan="2"><input type="text"/></td>
+</tr>
+<tr>
+<td>생일</td><td colspan="2"><input type="date" ></td>
+</tr>
+<tr>
+<td>연락처</td><td colspan="2"><input type="text" /></td>
+</tr>
+<tr>
+<td>휴대폰</td><td ><input type="text"/></td><td><input type="checkbox"/>수신</td>
+</tr>
+<tr>
+<td>이메일</td><td><input type="text"/></td><td>@<input type="text" list="mail"/><input type="checkbox"/>수신 </td>
+</tr>
+<tr>
+<td>성별</td><td colspan="2"><input type="radio" value="남자"/>남자<input type="radio" value="여자"/>여자</td>
+</tr>
+<tr>
+<td >소재지</td><td colspan="2">
+<select  name="home" id="home">
+<option>선택해주세요.</option>
+<option>강원</option>
+<option>경기</option>
+<option>경남</option>
+<option>경북</option>
+<option>광주</option>
+<option>대구</option>
+<option>대전</option>
+<option>부산</option>
+</select></td>
+</tr>
+<tr>
+<td>우편번호</td><td><input type="text" readonly="readonly"/></td><td><input type="button" value="우편번호검색"/></td>
+</tr>
+<tr>
+<td rowspan="2">주소</td><td colspan="2"><input type="text" readonly="readonly" size="50"/></td>
+</tr>
+<tr>
+<td colspan="2"><input type="text" readonly="readonly" size="50"/></td>
+</tr>
+<tr>
+<td colspan="4" align="center"><input type="button" value="확인"/><input type="button" value="취소"/></td>
+</tr>
+</table>
+<datalist id="mail">
+<option value="naver.com"/>
+<option value="daum.net"/>
+<option value="google.com"/>
+<option value="hanmail.com"/>
+<option value="nate.com"/>
+<option value="korea.com"/>
+</datalist>
+
+</body>
+</html>

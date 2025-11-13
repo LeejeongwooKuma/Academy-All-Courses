@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+.chk{width:20px; height: 20px}
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$("#btn").click(chkVal);//F.C.F
+	$("#btn2").click(chkVal2);//F.C.F
+	$("#btn3").click(useArr);//F.C.F
+	//$("#btn5").click(useArr2);// ready시에는 btn5가 없었음 => 이벤트 처리가 안됨. -> inline으로 처리(onxxx속성 사용)
+});//ready
+
+function useArr2() {
+	//<input type="text"라도 돌일한 이름을 가지면 배열로 처리된다.
+	var langArr=$("selLang");
+	
+	$.each(langArr,function(i, ele){
+		alert($(ele).val());
+	});//each
+}
+
+function useArr() {
+	var arr=["Java", "Oracle","JDBC","HTML","CSS"];
+	
+	$.each(arr,function(i, ele){
+		alert(i+"번째 방에는"+ele+"가 있음.")
+	});
+}//useArr
+
+function chkVal() {
+	//태그를 찾고 바로 반복
+	var output="";
+	
+	//var cnt=0;
+	$(".chk:checked").each(function(i, chk){//each함수에는 반복시켜서 무기함수를 호출하는 코드가 숨어있음.
+		output+=$(chk).val()+" ";
+		//cnt++;
+	});//each
+	//alert(cnt)
+	
+	//관심언어는 3개까지만 선택할 수 있도록 사용자에게 alert으로 안내.
+	if($(".chk:checked").length > 3) {
+		alert("체크는 3개까지만 가능합니다.");
+		return;
+	}//end if
+	
+	$("#output").html(output);
+}//end chkVal
+
+function chkVal2() {
+	//태그를 찾은 후 반복
+	var chkArr=$(".chk:checked");
+	
+	var output="";
+	//each를 사용하여 반복하여 output div에 출력 해보기.
+	$.each(chkArr, function(i,ele){
+		output+=`<label><strong>${i+1}</strong>.</label>
+		<input type="text" name="selLang" class="selLang" value="${$(ele).val()}"/><br>`
+	});//each
+	
+	output+="<input type='button' value='값전송' class='btn btn-info' onclick='useArr2()'>"; //나중에 만드는 버튼이라 id로 못 찾음. 그러니 아예 onclik으로 해버리면,
+	//얘를 만들 때는 useArr2가 존재하므로 사용 가능.
+	
+	$("#output").html(output);
+}//end chkVal2
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	<label>관심언어</label>
+	<input type="checkbox" name="lang" class="chk" value="Java"/>Java
+	<input type="checkbox" name="lang" class="chk" value="C/C+"/>C/C+
+	<input type="checkbox" name="lang" class="chk" value="PyThon"/>PyThon
+	<input type="checkbox" name="lang" class="chk" value="JavaScript"/>JavaScript
+	<input type="checkbox" name="lang" class="chk" value="Go Lang"/>Go Lang
+	<input type="checkbox" name="lang" class="chk" value="도"/>도<br>
+	<input type="button" value="태그 자체반복" class="btn btn-success" id="btn"/><br>
+	<input type="button" value="태그와 반복을 분리" class="btn btn-success" id="btn2"/><br>
+	<input type="button" value="배열 반복" class="btn btn-success" id="btn3"/><br>
+	<div id="output"></div>
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

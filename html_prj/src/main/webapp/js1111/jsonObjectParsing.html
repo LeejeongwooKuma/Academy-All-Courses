@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+td {border: 1px solid gray}
+th {border: 1px solid gray}
+</style>
+<script type="text/javascript">
+
+	var jsonObj={pubDate: new Date(),
+	      description:"뉴스의 현장에서 뵙겠습니다",
+	      title:"이슈 Top10",
+	      newsData : [
+	            {title:"윤석열, 세번째 통보 끝에 해병특검 출석…피의자 신분 조사",
+	               link:"https://news.jtbc.co.kr/article/NB12270402",
+	               description:"윤석열 전 대통령이 오늘(11일) 순직해병 특별검사팀에 피의자 신분으로 출석했습니다.",
+	               pubDate:"Tue, 11 Nov 2025 10:41:06 +0900"
+	               },
+	            {title:"[비하인드 뉴스] 김기현 '사회적 예의' 해명에…\"그러면 돈 없는 사람은?\"",
+	               link:"https://news.jtbc.co.kr/article/NB12270322",
+	               description:`비하인드 뉴스, 정치부 이성대 기자 나와있습니다. 시작할까요.
+	                  [기자]
+	                  < 사회적 예의가 없다 >
+	                  김기현 국민의힘 전 대표 부인이 23년 3월 당 대표 선거 직후에 김건희 씨에게 명품백을 준 사실이`,
+	               pubDate:"Tue, 11 Nov 2025 10:41:06 +0900"
+	               },
+	            {title:"의대 대신 AI' 장려금 준다…'박사까지 5.5년' 패스트트랙도",
+	               link:"https://news.jtbc.co.kr/article/NB12270294",
+	               description:"AI시대에 발맞춰 교육부가 초등학생부터 성인까지 전 생애에 걸쳐 인공지능 AI 인재를 양성하기로 했습니다. 빠르게 전문가를 키우기 위해서 대학 입학 후 5년 반만에 박사가 될 수 있는 길도 열었습니다.",
+	               pubDate:"Tue, 11 Nov 2025 11:41:06 +0900"
+	               },
+	            {title:"일단 휴전', 미국 셧다운 40일 만에 임시 예산안 합의…정부 정상화 임박",
+	               link:"https://news.jtbc.co.kr/article/NB12270309",
+	               description:"정부 재가동을 위한 임시 예산안이 미 상원의 절차 표결을 통과했습니다.",
+	               pubDate:"Tue, 11 Nov 2025 12:42:06 +0900"
+	               },
+	      ]
+	}
+function useJsonObjectParsing() {
+	var output=`
+				<table class='table table-hover'>
+				<thead>
+				<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>설명</th>
+				<th>기사작성일</th>
+				</tr>
+				<tbody>
+	`;
+	var jsonTempNews;
+	var title;
+	for(var i = 0; i < jsonObj.newsData.length; i++) {
+		jsonTempNews=jsonObj.newsData[i];
+		title=jsonTempNews.title;
+		if(title.length > 15) {
+			title=title.substring(0,15)+"...";
+		}
+		output+=`
+		<tr>
+		<td>${i+1}</td>
+		<td><a href='${jsonTempNews.link}'>${title}</a></td>
+		<td>${jsonTempNews.description}</td>
+		<td>${jsonTempNews.pubDate}</td>
+		</tr>
+		`;
+	}//end for
+	output+=`
+			</tbody>
+			</table>
+	`;
+	document.getElementById("output").innerHTML=output;
+}//end 
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	<input type="button" value="파싱" class="btn btn-success"
+	onclick="useJsonObjectParsing();"/>
+		<div id="output"></div>
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

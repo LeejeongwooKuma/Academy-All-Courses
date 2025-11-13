@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+</style>
+<script type="text/javascript">
+
+//지역변수
+//1.선언) var 변수명; //데이터 형을 알 수 없다.
+//bootstrap.js에 name이라는 변수가 존재해서 name을 넣으면 이상하게 뜸.
+var name2;
+//alert("값할당 전 : " + typeof(name2) );
+//2.값 할당) 변수명 = "값"; // 할당되는 값에 따라 데이터 형이 결정된다.
+name2 = "민병조";
+//alert("값할당 후 : " + typeof(name2) );
+//name2 = 25;
+//alert("25 값할당 후 : " + typeof(name2) );
+//name2 = true;
+//alert("true 값할당 후 : " + typeof(name2) );
+
+//3.값 사용)
+document.write(name2+"<br>");
+
+/* <br> : JS영역에서는 HTML tag를 정의할 수 없다.*/
+//전역변수
+//1.선언) 변수명 = 값;
+age=20;
+//2.사용) 
+document.write(age);
+
+function useVariable() {
+	document.write(" 지역변수 : " + name2 + "<br>");
+	document.write(" 전역변수 : " + age + "<br>");
+}//useVariable
+function useVariable2() {
+	var addr="경기도 의정부시 민락동";//지역변수 : 함수 안에서 사용할 수 없다
+	addr2="서울시 역삼동";//전역변수 : 함수 외부에서 사용할 수 없다.
+	alert(" 지역변수 : " + addr);
+	alert(" 전역변수 : " + addr2);
+}//useVariable2
+function useVariable3() {
+	//alert(" 지역변수 : " + addr);//외부에서 사용불가
+	alert(" 전역변수 : " + addr2);//외부에서 사용가능
+}//useVariable2
+
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div>
+	<input type="button" value="변수의 사용" class="btn btn-warning" 
+	onclick="useVariable()"/> <br>
+	<input type="button" value="변수의 사용2" class="btn btn-danger" 
+	onclick="useVariable2()"/> <br>
+	<input type="button" value="변수의 사용3" class="btn btn-info" 
+	onclick="useVariable3()"/> <br>
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

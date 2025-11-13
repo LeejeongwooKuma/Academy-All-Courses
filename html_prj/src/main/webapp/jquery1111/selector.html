@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+#output{ border: 1px solid #333; width: 300px; height: 100px;}
+.input{ border: 1px solid #333;}
+</style>
+<!-- jQuery DNS 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	//id selector (1개만)
+	$("#output").css("background-color","#FF0000");
+	
+	//class selector
+	$(".input").css("background-color","#42924B");
+	
+	//tag selector
+	$("span").css("background-color","#C3E9FF");
+	
+	//multiple selector
+	$("td, th").css("background-color","#C3E9FF");
+	
+	//attribute selector
+	//$("[type='button']").css("background-color","#3673C4");
+	//$("[id='btn2']").css("background-color","#3673C4");
+	//$("[id='btn'],[ID='btn2']").css("background-color","#3673C4");
+      $("[value='클릭'").css("background-color","#3673C4");
+      
+    //sub selector
+    $("div > p > span").css("background-color","#FF0000");
+      
+    //behavior selector : 제이쿼리에서 지원하지 않는다.
+    //$("a:hover").css("background-color","#FF0000"); //동작하지 않는다.
+    $("a").mouseenter(function(){
+    	$("a").css("background-color","#FF0000");
+    });
+});//ready
+</script>
+</head>
+<body>
+<p>
+jQuery<span>복잡한가요?</span>
+</p>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<div id="output">	</div>
+	<div>
+	<input type=text name="name" class="input"/><br/>
+	<input type=text name="name" class="input"/><br/>
+	<input type=text name="name" class="input"/><br/>
+	</div>
+	<div>
+		오늘은 <span>화요일</span>입니다.<br>
+		내일은 <span>수요일</span>입니다.<br>
+	</div>
+	<div>
+	<table>
+	<tr>
+		<th>번호</th>
+		<th>이름</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>민병조</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>조경민</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>민조병</td>
+	</tr>
+	</table>
+	</div>
+	<input type="button" id="btn" value="클릭"/>
+	<input type="button" id="btn2" value="클릭"/>
+	<div>
+	<p>오늘은 <span>11월 11일</span> 화요일입니다.</p>
+	</div>
+	<div>
+		<a href="#">클릭해보세요.</a>
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

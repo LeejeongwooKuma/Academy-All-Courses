@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://192.168.10.76/html_prj/common/images/favicon2.ico"/>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 내가 만든 CSS
+<link rel="stylesheet" type="text/css" href="http://192.168.10.76/html_prj/common/css/main_20251031.css"/> -->
+<!-- bootstrap CDN 시작-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- bootstrap CDN 끝-->
+<style type="text/css">
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
+
+#output{ border: 1px solid #333; width: 800px; height: 300px; overflow: auto;}
+</style>
+<script type="text/javascript">
+//길이는 length keyword
+function useStr() {
+	var msg="오늘은 수요일 입니다.";
+	var output=`<strong>${msg}</strong><br>의 글자수 ${msg.length}자 <br>`;
+	msg="민병조";
+	output +=`${msg}은 ${msg==="민병조"}<br>`;
+	msg="JavaScript는 S언어로 만들어진 언어";
+	output += `${msg}를 모두 대문자 ${msg.toUpperCase()} <br>`;
+	output += `${msg}를 모두 소문자 ${msg.toLowerCase()} <br>`;
+	output += `${msg}에서 'S'에 인덱스 ${msg.indexOf("S")} <br>`;//찾는 문자가 없다면 -1
+	output += `${msg}에서 'a'에 인덱스 ${msg.lastIndexOf("a")} <br>`;
+	output += `${msg}에서 두번째 'S'에 인덱스 ${msg.indexOf("S",msg.indexOf("S")+1)} <br>`;
+	output += `${msg}에서 4~9사이의 하위 문자열 ${msg.substring(4,10)} <br>`;
+	msg="   에어컨 나온다   ";
+	output += `"${msg}"앞뒤 공백 제거 "${msg.trim()}" <br>`;
+	
+	msg="JavaScript";
+	output += `${msg}는 Java로 시작되었는가? ${msg.startsWith("Java")}<br>`;
+	output += `${msg}는 java로 시작되었는가? ${msg.startsWith("java")}<br>`;
+	output += `${msg}는 pt로 끝났는가? ${msg.endsWith("pt")}<br>`;
+	output += `${msg}는 at로 끝났는가? ${msg.endsWith("at")}<br>`;
+	
+	var msg2=msg.concat("는 객체 기반 언어!!");
+	output += `${msg2}<br>`;
+	output += `${msg}에서 4번째 인덱스의 문자 ${typeof(msg.charAt(4))}<br>`;
+	
+	var arr="이것이,자바다,HTML5,웹플그래밍,입문".split(",");
+	arr.push("저것은 자반가?");
+	var ul="<ul class='list-group'>"
+	var active=""; //선택상태를 만들기 위한 변수
+	for(var i=0; i < arr.length; i++) {
+		if(i==3) {
+			active =" active";
+		}//end if
+		ul+=`<li class="list-group-item${active}">${arr[i]}</li>`;
+		active="";
+	}//end for
+	ul+="</ul>";
+	
+	output += ul;
+	
+	msg=msg.replaceAll("Java", "Type");
+	output += msg;
+	
+	document.getElementById("output").innerHTML=output;
+}
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="header">header 1200(w) x 150(h)
+		사이트로고, 주력서비스, navigation bar, 
+	</div>
+	<div id="container">
+	<input type="button" value="문자열함수" class="btn btn-success btn-sm" 
+		onclick="useStr()"/><br>
+	<div id="output">
+	</div>
+	</div>
+	<div id="footer">footer 1200(w) x 150(h)</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>복잡한 모양의 테이블</title>
+</head>
+<body>
+<strong>칸합치기</strong>
+<!-- 시작하는 td에서 colspan = "합칠칸의수" 뒤에 td 삭제-->
+<table border = "1"  height = "300">
+<tr>
+	<td colspan = "2" width = "200">1</td><!-- <td>2</td> --><td width = "100">3</td>
+</tr>
+<tr>
+	<td width = "100">4</td><td colspan = "2" width = "200">5</td><!-- <td>6</td> -->
+</tr>
+<tr>
+	<td colspan = "3" width = "300">7</td><!-- <td>8</td><td>9</td> -->
+</tr>
+</table>
+<hr>
+<strong>행합치기</strong>
+<!-- 시작하는 td에서 rowspan = "합칠행의수" 아래 td를 삭제 -->
+<table border = "1" width = "300" >
+<tr height = "100">
+	<td rowspan = "2">1</td><td>2</td><td rowspan = "3">3</td>
+</tr>
+<tr height = "100">
+	<!-- <td>4</td> --><td rowspan = "2">5</td><!-- <td>6</td> -->
+</tr >
+<tr height = "100">
+	<td>7</td><!-- <td>8</td> --><!-- <td>9</td> -->
+</tr>
+</table>
+<hr>
+<strong>테스트</strong>
+<table border = "1" width = "300" >
+<tr height = "100">
+	<td rowspan = "2" bgcolor = "red">1</td><td colspan = "2" bgcolor = "green">2</td><!-- <td>3</td> -->
+</tr >
+<tr height = "100">
+	<!-- <td>4</td> --><td>5</td><td rowspan = "2">6</td>
+</tr >
+<tr height = "100">
+	<td colspan = "2">7</td><!-- <td>8</td> --><!-- <td>9</td> -->
+</tr>
+</table>
+</body>
+</html>

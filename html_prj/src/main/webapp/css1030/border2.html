@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#left{ border-left: 1px solid #FF0000}
+#top{ border-top: 2px solid #00FF00}
+#right{ border-right: 2px solid #0000FF}
+#bottom{ border-bottom: 1px solid #000000}
+.txt{border:0px}
+label,input{ font-size: 16px; font-weight: bold;}
+th,td{border-bottom: 1px dotted #3D3D3D}
+table{border-top: 2px solid #2A5994}
+tbody > tr:hover{background-color: #efefef}
+</style>
+</head>
+<body>
+<div id="left">왼쪽</div>
+<div id="top">위쪽</div>
+<div id="right">오른쪽</div>
+<div id="bottom">아랫쪽</div>
+<label for="txt">이름</label>
+<input type="text" name="name" class="txt" id="txt"/>
+<br>
+
+<table>
+<thead>
+<tr>
+	<th width="80">번호</th>
+	<th width="150">이름</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td>1</td><td id="t1">민병조</td>
+</tr>
+<tr>
+	<td>2</td><td id="t2">이정우</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

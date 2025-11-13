@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>링크</title>
+</head>
+<body>
+<strong>상대경로</strong>
+<br>
+<a href = "h_tag.html">H 태그</a><br/>
+<a href = "../day1023/font.html">font 태그</a><br/>
+<hr>
+<strong>URL</strong>
+<br>
+<a href ="http://daum.net" title = "카카오 계열사">다음</a><br>
+<a href ="http://192.168.10.76/html_prj/day1023/markup.html">마크업태그연습</a><br>
+<a href ="https:www.daum.net"><img src = "http://192.168.10.76/html_prj/common/images/google.png"/></a>
+<br>
+<a href ="img.html">이미지연습</a>(<a href = "img.html" target = "blank">새창으로</a>) <br>
+<!-- 태그는 적용 순서가 있다. -->
+<!-- font 후 a 적용 : 글자색이 a 태그의 색 -->
+<font color = "black"><a href = "#void">이동</a></font> <!-- #void는 아직 이동할 url은 미정이라는 소리. -->
+<!-- a 후 font 적용 : 글자색이 font색 -->
+<a href = "#void"><font color = "black"><strong>이동</strong></font></a>
+<hr>
+<strong>web browser가 해석할 수 없는 파일의 링크</strong><br>
+<a href = "nice.hwp">한글파일</a>
+<a href = "20251024_html.pptx">한글파일</a>
+<br>
+<strong>a태그의 다양한 사용</strong><br>
+관리자에게<a href = "mailto:tkdeod1234@naver.com">메일</a><!-- outlook만 가능 --><br>
+관리자에게<a href = "tel:010-1111-1111">희망의 전화</a><br>
+관리자에게<a href = "sms:010-1111-1111">긴급메시지</a><br>
+</body>
+</html>
