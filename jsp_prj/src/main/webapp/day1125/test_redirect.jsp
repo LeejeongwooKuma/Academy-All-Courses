@@ -1,6 +1,26 @@
-<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    session="true"
+    %>
+<%
+//악의적인 목적 사용자
+String[] blockIp={"192.168.10.76",
+		"192.168.10.78","192.168.10.96","192.168.10.85",
+		"192.168.10.83","192.168.10.73","192.168.10.90","192.168.10.91"};
+String ip = request.getRemoteAddr();//접속자의 ip
+boolean blockFlag=false;
+for(int i =0; i < blockIp.length; i++) {
+	if( blockFlag=ip.equals(blockIp[i]) ) {
+		break;
+	}//end if
+}//end for
+if(blockFlag) {
+	response.sendRedirect("https://www.police.go.kr/index.do");
+	return;
+}
+
+%>    
+    
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
@@ -104,27 +124,10 @@
 }
 </style>
 <style type="text/css">
-/* 달력 객체의 디자인 */
-#calWrap{ font-family: "맑은 고딕", sans-serif; }
-#calHeader{ text-align: center; margin-bottom: 20px;}
-.calTitle{ font-size:30px; font-weight: bold;}
-
-#calTab{ margin: 0px auto; border: 1px solid #C7C8C9;}
-th,td { border: 1px solid #C7C8C9; }
-.sunTitle { width: 120px; text-align: center;  color: #C7C8C9; background-color: #DE4F44; }
-.weekTitle { width: 120px; text-align: center; font-weight: normal;}
-.satTitle { width: 120px; text-align: center; color: #C7C8C9; background-color: #327EEF;}
-
-a {text-decoration: none; color: #000000 ;}
-a:hover { color: #C7C8C9 ; }
-td {height: 80px; text-align: left; vertical-align: top;}
-.blankTd{ background-color: #EFEFEF;}
-
-.sunText{ color: #DA3F35; }
-.weekText{ color: #293048; }
-.satText{ color: #307DEF; }
-
-.toDayTd{ background-color: #BACEE0; } /* 오늘 */
+#wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
+#header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
+#container{  height: 700px; }
+#footer{  height: 150px; }
 </style>
 <!-- jQuery CDN 시작 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -247,133 +250,8 @@ $(function(){
 			<!-- START THE FEATURETTES -->
 			<hr class="featurette-divider">
 			<div class="row featurette">
-				<div id="calWrap">
-				<%
-				Calendar cal=Calendar.getInstance();
-				//오늘을 저장하는 flag변수
-				StringBuilder flagDate = new StringBuilder();
-				flagDate.append(cal.get(Calendar.YEAR)).append(cal.get(Calendar.MONTH)+1).append(cal.get(Calendar.DAY_OF_MONTH));
-				
-				int nowYear = 0;
-				int nowMonth = 0;
-				int nowDay = cal.get(Calendar.DAY_OF_MONTH);
-				
-
-				//입력된 년 받기 : web parameter가 존재하지 않으면 null 발생
-				String paramYear=request.getParameter("paramYear");
-				if(paramYear != null) { //web parameter가 존재하면
-				cal.set(Calendar.YEAR, Integer.parseInt(paramYear));
-				}//end if
-				//if를 타면 설정된 년이 저장되고, if를 타지 않으면 현재 년이 저장된다.
-				nowYear = cal.get(Calendar.YEAR);
-				
-				//입력된 월 받기
-				String paramMonth=request.getParameter("paramMonth");
-				if(paramMonth != null) {
-					//Calendar 객체의 월은 0월부터 11월로 12달을 사용.(사람의 월보다 1 작다.)
-					//10월이 입력되면 자바는 11월.
-					cal.set(Calendar.MONTH, Integer.parseInt(paramMonth)-1);
-				}
-				//if를 타면 설정된 월이 저장되고, if를 타지 않으면 현재 월이 저장된다.
-				nowMonth = cal.get(Calendar.MONTH)+1;
-				
-				
-				%>
-				<div id="calHeader">
-					<a href="calendar.jsp?paramYear=<%= nowMonth-1==0? nowYear-1:nowYear%>&paramMonth=<%=nowMonth-1==0?12:nowMonth-1%>">
-					<span class="calTitle" title="이전월">&lt;</span>
-					</a>
-					<span class="calTitle"><%=nowYear%>-<%=nowMonth%></span>
-					<a href="calendar.jsp?paramYear=<%= nowMonth+1==13? nowYear+1:nowYear %>&paramMonth=<%=nowMonth+1==13?1:nowMonth+1%>">
-					<span class="calTitle" title="다음월">&gt;</span>
-					</a>
-					<a href="calendar.jsp" class="btn btn-success">오늘</a>
-				</div>
-				<div id="calBody">
-					<table id="calTab">
-					<thead>
-					<tr>
-					<th class="sunTitle">일</th>
-					<th class="weekTitle">월</th>
-					<th class="weekTitle">화</th>
-					<th class="weekTitle">수</th>
-					<th class="weekTitle">목</th>
-					<th class="weekTitle">금</th>
-					<th class="satTitle">토</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-					<%
-					cal.set(Calendar.DAY_OF_MONTH, 1); //1일로 설정
-					//1일의 요일을 얻어와서 1일을 출력하기 전에 공백을 넣는다.
-					int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK); //1일이 무슨 요일인가?
-							
-					//요일별 글자색 설정할 변수
-					String dayColorCss = "";
-				 	//오늘을 강조하는 CSS를 설정할 변수
-				 	String toDayTd="";
-							
-					for(int i=1; i<dayOfWeek; i++) {
-						
-					%>
-					<td class="blankTd"></td>
-					<%
-					}//end for
-					
-					for(int tempDay=1;;tempDay++) {//마지막날을 모름
-						//증가하는 임시 일자로 달력 객체 설정. (현재월에 없는 날짜가 입력되면 자동으로 다음달 1일이 된다.)
-						cal.set(Calendar.DAY_OF_MONTH, tempDay); 
-						//임시일자와 설정된 날짜가 다르면 (다음달 1일)
-						if( tempDay != cal.get(Calendar.DAY_OF_MONTH)){
-							dayOfWeek = cal.get(Calendar.DAY_OF_WEEK); //1일이 무슨 요일인가?
-							
-							for(int i=dayOfWeek; i<8; i++) {
-							%>
-							<td class="blankTd"></td>
-							<%
-							}//end for
-							//반복문을 빠져 나간다.
-							%>
-							</tr><%
-							break;
-						}//end if
-						
-						dayColorCss="weekText";
-								
-						switch(cal.get(Calendar.DAY_OF_WEEK)) {
-						case Calendar.SATURDAY: dayColorCss="satText"; break; 
-						case Calendar.SUNDAY: dayColorCss="sunText"; break; 
-						}//end switch
-						
-						//오늘을 강조하는 CSS
-						toDayTd="";
-						if( flagDate.toString().equals(nowYear+""+nowMonth+tempDay)) {
-							toDayTd=" toDayTd";
-						}//end if
-						%>
-						<!-- 요일을 출력 -->
-						<td class="<%=dayColorCss%><%=toDayTd %>">
-						<div>
-						<%=tempDay %>
-						</div>
-						</td>
-						<%
-						//토요일이면 줄 변경
-						switch(cal.get(Calendar.DAY_OF_WEEK)) {
-						case Calendar.SATURDAY : 
-							%>
-							</tr><tr>
-							<%
-						}//end switch
-						
-					}//end for
-					%>
-					
-					</tbody>
-					
-					</table>
-				</div>
+				<div class="col-md-7">
+					정상적인 사용자					
 				</div>
 			</div>
 			<hr class="featurette-divider">

@@ -8,6 +8,10 @@
 </head>
 <body>
 <%
+//payload에 입력된 모든 문자의 charset을 설정. (POST 방식에만 동작한다.)
+//*주의 : 모든 request가 사용되기 전에 코딩해야 함.
+request.setCharacterEncoding("UTF-8");
+
 //request 내장객체를 사용하여 HTML Form Control에 입력된 값을 받기.
 //id=testsdfg&pass=minjo123&birth=2025-11-06&loc=서울&intro=내소개&code=U3881
 //위에 보니 parameter명이 전부 유일하다 => String 변수명 = request.getParameter("파라메터명"); 사용하자.
@@ -22,7 +26,9 @@ String code = request.getParameter("code");
 <strong><%= request.getMethod() %>방식 입력값</strong>
 <div>
 <ul>
-<li><strong>아이디</strong> : <%=id %> </li>
+<!-- String 클래스를 생성하여 한글 변환가능 : 입력된 값이 한글인 모든 값에 여러번 처리 해야함.-->
+<%-- <li><strong>아이디</strong> : <%= new String(id.getBytes("8859_1"),"UTF-8") %> </li> --%>
+<li><strong>아이디</strong> : <%= id %> </li>
 <li><strong>비번</strong> : <%=pass %> </li>
 <li><strong>생년월일</strong> : <%=birth %> </li>
 <li><strong>거주지</strong> : <%=location %> </li>
