@@ -1,6 +1,7 @@
+<%@page import="org.apache.jasper.compiler.Node.UseBean"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" info="useBean을 적용한 calendar" %>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
@@ -176,6 +177,9 @@ $(function(){
 			<hr class="featurette-divider">
 			<div class="row featurette">
 				<div id="calWrap">
+				<!-- parameter 값 처리 -->
+				<jsp:useBean id="cDTO" class="kr.co.sist.calendar.CalendarDTO" scope="page"/>
+				<jsp:setProperty property="*" name="cDTO"/>
 				<%
 				Calendar cal=Calendar.getInstance();
 				//오늘을 저장하는 flag변수
@@ -186,9 +190,10 @@ $(function(){
 				int nowMonth = 0;
 				int nowDay = cal.get(Calendar.DAY_OF_MONTH);
 				
-
 				//입력된 년 받기 : web parameter가 존재하지 않으면 null 발생
-				String paramYear=request.getParameter("paramYear");
+				//값을 받은 객체가 request > DTO로 변환
+				String paramYear=cDTO.getParamYear();
+				
 				if(paramYear != null) { //web parameter가 존재하면
 				cal.set(Calendar.YEAR, Integer.parseInt(paramYear));
 				}//end if
@@ -196,7 +201,8 @@ $(function(){
 				nowYear = cal.get(Calendar.YEAR);
 				
 				//입력된 월 받기
-				String paramMonth=request.getParameter("paramMonth");
+				//값을 받은 객체가 request > DTO로 변환
+				String paramMonth=cDTO.getParamMonth();
 				if(paramMonth != null) {
 					//Calendar 객체의 월은 0월부터 11월로 12달을 사용.(사람의 월보다 1 작다.)
 					//10월이 입력되면 자바는 11월.
