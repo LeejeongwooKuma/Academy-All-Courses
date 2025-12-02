@@ -3,14 +3,12 @@ package day1128;
 import java.util.Arrays;
 
 public class ParamDTO {
-	private String id, pass, birth, loc, intro , code, ip, secChUaPlatform, userAgents;
+	private String id, pass, birth, loc, intro , code,name, email, ip, secChUaPlatform, userAgents;
 	private String[] language;
 	public ParamDTO() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
-	public ParamDTO(String id, String pass, String birth, String loc, String intro, String code, String ip,
-			String secChUaPlatform, String userAgents, String[] language) {
+	public ParamDTO(String id, String pass, String birth, String loc, String intro, String code, String name,
+			String email, String ip, String secChUaPlatform, String userAgents, String[] language) {
 		super();
 		this.id = id;
 		this.pass = pass;
@@ -18,6 +16,8 @@ public class ParamDTO {
 		this.loc = loc;
 		this.intro = intro;
 		this.code = code;
+		this.name = name;
+		this.email = email;
 		this.ip = ip;
 		this.secChUaPlatform = secChUaPlatform;
 		this.userAgents = userAgents;
@@ -59,6 +59,18 @@ public class ParamDTO {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getIp() {
 		return ip;
 	}
@@ -86,8 +98,7 @@ public class ParamDTO {
 	@Override
 	public String toString() {
 		return "ParamDTO [id=" + id + ", pass=" + pass + ", birth=" + birth + ", loc=" + loc + ", intro=" + intro
-				+ ", code=" + code + ", ip=" + ip + ", secChUaPlatform=" + secChUaPlatform + ", userAgents="
-				+ userAgents + ", language=" + Arrays.toString(language) + "]";
+				+ ", code=" + code + ", name=" + name + ", email=" + email + ", ip=" + ip + ", secChUaPlatform="
+				+ secChUaPlatform + ", userAgents=" + userAgents + ", language=" + Arrays.toString(language) + "]";
 	}
-	
 }

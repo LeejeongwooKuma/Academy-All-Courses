@@ -118,7 +118,9 @@
          </div>
       
          <button class="btn btn-primary w-100 py-2" type="submit">로그인</button>
-         
+         <div>
+         <a href="http://localhost/jsp_prj/day1128/usebeanParamForm.jsp">회원가입</a>
+         </div>
       </form>
    </main>
    

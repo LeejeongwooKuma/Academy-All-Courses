@@ -9,15 +9,15 @@
 <meta name="description" content="">
 
 <title>JSP템플릿</title>
-<link rel="shortcut icon" href="http://192.168.10.68/jsp_prj/common/images/favicon.ico">
+<link rel="shortcut icon" href="http://192.168.10.76/jsp_prj/common/images/favicon.ico">
 
-<script src="http://192.168.10.68/jsp_prj/common/js/color-modes.js"></script>
+<script src="http://192.168.10.76/jsp_prj/common/js/color-modes.js"></script>
 <!-- bootstrap CDN 시작 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 <meta name="theme-color" content="#712cf9">
-<link href="http://192.168.10.68/jsp_prj/common/css/carousel.css" rel="stylesheet">
+<link href="http://192.168.10.76/jsp_prj/common/css/carousel.css" rel="stylesheet">
 <jsp:include page="../fragments/bootstrap_css.jsp"/>
 <style type="text/css">
 #wrap{  margin: 0px auto; width: 1200px; height: 1000px; }	
@@ -30,10 +30,21 @@
 
 <script type="text/javascript">
 $(function(){
+	$("#btnSearch").click(function(){
+		findId();
+	});
 	$("#btn").click(function(){
 		//유효성 검증 후
-		$("#joinFrm").submit();//값을 back-end로 전송
+		$("#joinFrm").submit(); //값을 back-end로 전송
 	});//click
+	
+	//이벤트 처리
+	function findId(){
+		//alert( window.screenX+ " / "+window.screenY)
+		window.open("../day1202/findId.jsp?id="+$("#id").val(),"idWin",
+			"width=500,height=400,top="+(window.screenY+120)
+			+",left="+(window.screenX+250));
+	}
 });//ready
 
 </script>
@@ -56,16 +67,35 @@ $(function(){
 			<hr class="featurette-divider">
 			<div class="row featurette">
 				<div class="col-md-7">
-				<form name="joinFrm" id="joinFrm" action="usebeanParamFormProcess.jsp" method = "POST"> 
+				<form name="joinFrm" method="post" id="joinFrm" action="usebeanParamFormProcess.jsp"> 
 	<table id="joinFrm">
 		<tr>
 			<td class="title"><label><span class="star">*</span>아이디</label></td>
-			<td class="input"><input type="text" class="inputBox" name="id" value="testsdfg"/></td>
+			<td class="input"><input type="text" class="inputBox" name="id" id="id" value="testsdfg"/>
+			<input type="button" value="중복확인" class="btn btn-success btn-sm"
+		id="btnSearch"/>
+			</td>
 		</tr>
 
 		<tr>
 			<td class="title"><label><span class="star">*</span>비밀번호</label></td>
 			<td class="input"><input type="password" class="inputBox" name="pass" value="minjo123"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="title"><label><span class="star">*</span>이름</label></td>
+			<td class="input"><input type="text" class="inputBox" name="name" value="민병조"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="title"><label><span class="star">*</span>이메일</label></td>
+			<td class="input"><input type="text" class="inputBox" name="mail" value="test"/>@
+			<select name="domain">
+			<option value="google.com">google.com</option>
+			<option value="naver.com">naver.com</option>
+			<option value="daum.net">daum.net</option>
+			<option value="hotmail.com">hotmail.com</option>
+			</select>
 			</td>
 		</tr>
 

@@ -1,11 +1,10 @@
-<%@page import="day1128.MemberService"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.naming.Context"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-/* POST방식에서 한글 깨짐 방지. */
-request.setCharacterEncoding("UTF-8");
-%>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
@@ -62,67 +61,21 @@ $(function(){
 			<hr class="featurette-divider">
 			<div class="row featurette">
 				<div class="col-md-7">
-				<jsp:useBean id="pDTO" class="day1128.ParamDTO" scope="page"/>
-				<!-- web parameter를 한번에 받을 수 있다. -->
-				<jsp:setProperty property="*" name="pDTO"/>
-				<%
-				//web parameter가 아닌 접속자의 정보 받아야할 때
-				String ip=request.getRemoteAddr();
-				pDTO.setIp(ip);
-				//secChUaPlatform, userAgents
-				pDTO.setSecChUaPlatform(request.getHeader("sec-ch-ua-platform"));
-				pDTO.setSecChUaPlatform(request.getHeader("user-agent"));
-				
-				
-				%>
-
-
-				<%
-				//name은 유일한 이름이기 때문에 괜찮지만
-				//emain은 mail과 domain으로 분리되어 있다.
-				pDTO.setEmail(request.getParameter("mail")+"@"+request.getParameter("domain"));
-				
-				MemberService ms = new MemberService();
-				ms.joinMember(pDTO);//값을 받은 DTO를 Service객체에 전달할 수 있다. 
-				%>
-				<strong><jsp:getProperty property="id" name="pDTO"/></strong>
-				님
-				회원 가입을 축하드립니다.<br>
-				기존 서비스와는 차별화된 새로운 사용자 경험을 제공합니다.<br>
-				<img src="../common/images/img_4.jpg">
-				<br>
-				아이디 : <input type="text" value="${param.id}"/><br>
-				비밀번호 : ${param.pass }<br>
-				이름 : ${param.name }<br>
-				이메일 : ${param.mail }@${ param.domain }<br>
-				생년월일 : ${param.birth }<br>
-				거주지 : ${param.loc}<br>
-				소개 : ${param.intro}<br>
-				코드 : ${param.code }<br>
+					<%
+					//2번은 DbConn.java 싱글턴 패턴(DAO)을 사용한거고, 1번은 그냥 여기서 다 한 거.
+					//1. JNDI(Java Naming & Directory Interface)
+					// : Java가 개발한 기술로, 이름을 사용하여 객체를 찾고 얻을 수 있는 기술.
+					Context ctx = new InitialContext();
+					//2. JNDI 사용객체를 사용하여 DBCP에서 연결을 유지하고 있는 DataSource를 얻기.
+					DataSource ds =(DataSource)ctx.lookup("java:comp/env/jdbc/dbcp");//was마다 다름. env/다음에는 server.xml의 Resource name임. 반환 obj이라 케스팅 해야함.
+					//3. Connection 얻기
+					Connection con = ds.getConnection();
+					%>
+					<%=con %>					
+					<%
+					con.close();//close안 해주면 1번만 들어가면 계속 사용. 우리가 첨에 pool을 10개에 최대 20까지 해놨으니 20명 이후론 못 들어옴. 그래서 close해줘야함.					
+					%>
 				</div>
-				<div>
-				<strong>&lt;jsp:getProperty 사용</strong><br>
-				주소 : <jsp:getProperty property="language" name="pDTO"/><br>
-				<%//<jsp:getProperty를 사용하면 배열의 요소를 출력할 수 없다.
-				String[] lang=request.getParameterValues("language");
-				if(lang != null) {//NullPointerException 발생을 막기 위해서.
-					for(int i=0; i < lang.length; i++) {
-						%>
-						<%=lang[i] %>
-						<%
-					}//end for
-				}//end if
-				
-				%>
-				</div>
-				<div>
-				<strong>&lt;c:forEach 사용</strong><br>
-				<c:forEach var="lang" items="${ paramValues.language }" varStatus="i">
-				<c:out value="${ i.count }"/>.<c:out value="${ lang }"/> 
-				</c:forEach>
-				</div>
-				
-				
 			</div>
 			<hr class="featurette-divider">
 			<!-- /END THE FEATURETTES -->
