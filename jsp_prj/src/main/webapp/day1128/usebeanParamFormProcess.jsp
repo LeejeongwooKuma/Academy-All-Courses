@@ -1,6 +1,8 @@
+<%@page import="kr.co.sist.user.member.WebMemberService"%>
 <%@page import="day1128.MemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../fragments/siteProperty.jsp" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 /* POST방식에서 한글 깨짐 방지. */
@@ -12,8 +14,8 @@ request.setCharacterEncoding("UTF-8");
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
-<title>JSP 템플릿</title>
-<script src="http://192.168.10.76/jsp_prj/common/js/color-modes.js"></script>
+<title>${ SiteProperty.title }</title>
+<script src="${ CommonURL }/common/js/color-modes.js"></script>
 <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB">
 <link rel="shortcut icon" href="http://192.168.10.76/jsp_prj/common/images/favicon2.ico"/>
@@ -25,7 +27,7 @@ request.setCharacterEncoding("UTF-8");
 
 
 <meta name="theme-color" content="#712cf9">
-<link href="http://192.168.10.76/jsp_prj/common/css/carousel.css" rel="stylesheet">
+<link href="${ CommonURL }/common/css/carousel.css" rel="stylesheet">
 <jsp:include page="../fragments/bootstrap_css.jsp"/>
 
 
@@ -82,10 +84,28 @@ $(function(){
 				//emain은 mail과 domain으로 분리되어 있다.
 				pDTO.setEmail(request.getParameter("mail")+"@"+request.getParameter("domain"));
 				
-				MemberService ms = new MemberService();
-				ms.joinMember(pDTO);//값을 받은 DTO를 Service객체에 전달할 수 있다. 
+				WebMemberService wms= WebMemberService.getInstance();
+				
+				//한정적인 자원을(id) 동시에 사용할 때 조회를 먼저 수행한 후 다음 작업으로 진행한다.
+				boolean idFlag = wms.searchId(pDTO.getId());
+				if(!idFlag) {//아이디를 선점한 경우. 
+					%>
+					입력하신 ${ param.id }는 이미 사용중입니다.<br>
+					다른 아이디를 입력해주세요.
+					<a href="javascript:history.back()" class="btn btn-sucess">뒤로</a>					
+					<%
+				} else {
+					
+				
+				boolean addFlag=wms.addMember(pDTO, spVO.getKey());
+				pageContext.setAttribute("addFlag",addFlag);
 				%>
-				<strong><jsp:getProperty property="id" name="pDTO"/></strong>
+				<c:choose>
+				<c:when test="${addFlag }">
+				
+				
+				
+				<strong>${ param.id }<%-- <jsp:getProperty property="id" name="pDTO"/> --%></strong> <!-- EL쓰면 짧아진다. -->
 				님
 				회원 가입을 축하드립니다.<br>
 				기존 서비스와는 차별화된 새로운 사용자 경험을 제공합니다.<br>
@@ -99,7 +119,7 @@ $(function(){
 				거주지 : ${param.loc}<br>
 				소개 : ${param.intro}<br>
 				코드 : ${param.code }<br>
-				</div>
+				
 				<div>
 				<strong>&lt;jsp:getProperty 사용</strong><br>
 				주소 : <jsp:getProperty property="language" name="pDTO"/><br>
@@ -120,6 +140,17 @@ $(function(){
 				<c:forEach var="lang" items="${ paramValues.language }" varStatus="i">
 				<c:out value="${ i.count }"/>.<c:out value="${ lang }"/> 
 				</c:forEach>
+				</div>
+				
+				</c:when>
+				<c:otherwise>
+				<img src="../common/images/fail.png"/><br>
+				${ param.name }님 회원 가입을 실패하였습니다. <br>
+				잠시 후 다시 시도해 주세요.<br>
+				<a href="javascript:histroy.back()">뒤로</a>
+				</c:otherwise>
+				</c:choose>
+				<%}//end else %>
 				</div>
 				
 				
