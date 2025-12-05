@@ -1,14 +1,45 @@
+<%@page import="day1128.ParamDTO"%>
+<%@page import="kr.co.sist.user.member.WebMemberLoginService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../fragments/siteProperty.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+//POST방식 일때만 요청되어야한다.
+if( !"POST".equals(request.getMethod())) {
+%>
+<c:redirect url="${ CommonURL }/index.jsp"/>
+<%	
+}//end if
+%>
+<!-- 로그인에 필요한 아이디와 비밀번호 파라메터 받기 -->
+<jsp:useBean id="lDTO" class="kr.co.sist.user.member.LoginDTO" scope="page"/>
+<jsp:setProperty name="lDTO" property="*"/>
+<%
+WebMemberLoginService wmls = WebMemberLoginService.getInstance();
+ParamDTO pDTO=wmls.searchLogin(lDTO, spVO.getKey());
+
+if( pDTO != null) {//로그인 성공
+	//세션에 값을 할당.
+	session.setAttribute("userId", pDTO.getId());
+	session.setAttribute("userName", pDTO.getName());
+	session.setAttribute("userBirth", pDTO.getBirth());
+	//접속 history 남기고
+	//페이지를 이동
+%>
+<c:redirect url="${ CommonURL }/index.jsp"/>
+<%
+}//end if
+%>
+
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
-<title>사용자 메인</title>
+<title>JSP 템플릿</title>
 <script src="http://192.168.10.76/jsp_prj/common/js/color-modes.js"></script>
 <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB">
@@ -22,7 +53,7 @@
 
 <meta name="theme-color" content="#712cf9">
 <link href="http://192.168.10.76/jsp_prj/common/css/carousel.css" rel="stylesheet">
-<jsp:include page="fragments/bootstrap_css.jsp"/>
+<jsp:include page="../fragments/bootstrap_css.jsp"/>
 
 
 <style type="text/css">
@@ -44,7 +75,7 @@ $(function(){
 </head>
 <body>
 	<header data-bs-theme="dark">
-	<jsp:include page="fragments/header.jsp"/>
+	<jsp:include page="../fragments/header.jsp"/>
 	</header>
 	<main>
 		
@@ -58,17 +89,8 @@ $(function(){
 			<hr class="featurette-divider">
 			<div class="row featurette">
 				<div class="col-md-7">
-					사용자 메인 페이지<br>
-					사용자에게 제공할 contents,,,,<br>
-					<c:choose>
-					<c:when test="${ not empty sessionScope.userId }">
-					<c:out value="${ userId }"/>( <c:out value="${ userName }"/> )
-					님 안녕하세요? <a href="${CommonURL }/login/logout.jsp">로그아웃</a> 
-					</c:when>
-					<c:otherwise>
-					<a href="login/loginFrm.jsp">로그인</a>				
-					</c:otherwise>
-					</c:choose>
+					아이디나 비밀번호를 확인해주세요.<br>
+					<a href="javascript:history.back()">다시 로그인</a>				
 				</div>
 			</div>
 			<hr class="featurette-divider">
@@ -77,7 +99,7 @@ $(function(){
 		<!-- /.container -->
 		<!-- FOOTER -->
 		<footer class="container">
-			<jsp:include page="fragments/footer.jsp"/>
+			<jsp:include page="../fragments/footer.jsp"/>
 		</footer>
 	</main>
 

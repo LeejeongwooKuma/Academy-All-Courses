@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../fragments/siteProperty.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
-<title>사용자 메인</title>
+<title>JSP 템플릿</title>
 <script src="http://192.168.10.76/jsp_prj/common/js/color-modes.js"></script>
 <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB">
@@ -22,7 +22,7 @@
 
 <meta name="theme-color" content="#712cf9">
 <link href="http://192.168.10.76/jsp_prj/common/css/carousel.css" rel="stylesheet">
-<jsp:include page="fragments/bootstrap_css.jsp"/>
+<jsp:include page="../fragments/bootstrap_css.jsp"/>
 
 
 <style type="text/css">
@@ -36,7 +36,75 @@
 
 <script type="text/javascript">
 $(function(){
-
+	$("#btnHTML").click(function(){
+		$.ajax({
+			url:"response_html.jsp",
+			type:"GET",
+			dataType:"HTML",
+			error:function( xhr ) {
+				alert( "error code : " + xhr.status + ", msg : " + xhr.statusText);
+			},
+			success: function( html ) {
+				$("#output").html( html );
+			}
+		});//ajax
+	});//click
+	
+	$("#btnTEXT").click(function(){
+		$.ajax({
+			url:"response_text.jsp",
+			type:"GET",
+			dataType:"TEXT",
+			error:function( xhr ) {
+				alert( "error code : " + xhr.status + ", msg : " + xhr.statusText);
+			},
+			success: function( text ) {
+				
+				var arr=text.split(",");//보통 csv데이터이기에 ,를 기준으로 자르자.
+				var output="<ul>";
+				for(var i=0; i < arr.length; i++) {
+				output += "<li>"+arr[i]+"</li>";
+				}//end for
+				output+="</ul>";
+				
+				$("#output").html( output );
+			}
+		});//ajax
+	});//click
+	
+	$("#btnXML").click(function(){
+		$.ajax({
+			url:"response_xml.jsp",
+			type:"GET",
+			dataType:"XML",
+			error:function( xhr ) {
+				alert( "error code : " + xhr.status + ", msg : " + xhr.statusText);
+			},
+			success: function( xml ) {
+				
+				var output=$(xml).find("msg").text();
+				
+				$("#output").html( output );
+			}
+		});//ajax
+	});//click
+	
+	$("#btnJSON").click(function(){
+		$.ajax({
+			url:"testJson.jsp",
+			type:"GET",
+			dataType:"JSON",
+			error:function( xhr ) {
+				alert( "error code : " + xhr.status + ", msg : " + xhr.statusText);
+			},
+			success: function( jsonObj ) {
+				
+				var output=jsonObj.name;
+				
+				$("#output").html( "이름 : " + output );
+			}
+		});//ajax
+	});//click
 });//ready
 
 
@@ -44,7 +112,7 @@ $(function(){
 </head>
 <body>
 	<header data-bs-theme="dark">
-	<jsp:include page="fragments/header.jsp"/>
+	<jsp:include page="../fragments/header.jsp"/>
 	</header>
 	<main>
 		
@@ -58,17 +126,13 @@ $(function(){
 			<hr class="featurette-divider">
 			<div class="row featurette">
 				<div class="col-md-7">
-					사용자 메인 페이지<br>
-					사용자에게 제공할 contents,,,,<br>
-					<c:choose>
-					<c:when test="${ not empty sessionScope.userId }">
-					<c:out value="${ userId }"/>( <c:out value="${ userName }"/> )
-					님 안녕하세요? <a href="${CommonURL }/login/logout.jsp">로그아웃</a> 
-					</c:when>
-					<c:otherwise>
-					<a href="login/loginFrm.jsp">로그인</a>				
-					</c:otherwise>
-					</c:choose>
+					<input type="button" value="HTML 요청" class="btn btn-success" id="btnHTML">					
+					<input type="button" value="TEXT 요청" class="btn btn-warning" id="btnTEXT">					
+					<input type="button" value="XML 요청" class="btn btn-primary" id="btnXML">					
+					<input type="button" value="JSON 요청" class="btn btn-info" id="btnJSON">
+					<div id="output">
+					
+					</div>					
 				</div>
 			</div>
 			<hr class="featurette-divider">
@@ -77,7 +141,7 @@ $(function(){
 		<!-- /.container -->
 		<!-- FOOTER -->
 		<footer class="container">
-			<jsp:include page="fragments/footer.jsp"/>
+			<jsp:include page="../fragments/footer.jsp"/>
 		</footer>
 	</main>
 
