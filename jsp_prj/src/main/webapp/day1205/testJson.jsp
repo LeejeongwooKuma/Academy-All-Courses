@@ -1,10 +1,8 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="org.json.simple.JSONObject"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="application/json; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%> 
-<%@ include file="../fragments/siteProperty.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 //소스보기 하면 공백 존재함. XML에서는 공백은 에러라서 trimDirectiveWhitespaces = true로 공백 없애줌.
 //1. JSONObject 생성
