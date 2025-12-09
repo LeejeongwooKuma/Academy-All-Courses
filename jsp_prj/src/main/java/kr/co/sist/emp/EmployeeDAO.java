@@ -106,6 +106,6 @@ public class EmployeeDAO {
 			dbCon.dbClose(rs, pstmt, con);
 		}//end finally
 		return list;
-	}//selectAllDept
+	}//selectEmp
 	
 }//class

@@ -64,6 +64,8 @@ $(function(){
 					<c:when test="${ not empty sessionScope.userId }">
 					<c:out value="${ userId }"/>( <c:out value="${ userName }"/> )
 					님 안녕하세요? <a href="${CommonURL }/login/logout.jsp">로그아웃</a> 
+					<br>
+					<a href="${CommonURL}/board/boardList.jsp">게시판</a>
 					</c:when>
 					<c:otherwise>
 					<a href="login/loginFrm.jsp">로그인</a>				
