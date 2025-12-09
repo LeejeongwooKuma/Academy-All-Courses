@@ -71,7 +71,7 @@ $(function(){
 	<table id="joinFrm">
 		<tr>
 			<td class="title"><label><span class="star">*</span>아이디</label></td>
-			<td class="input"><input type="text" class="inputBox" name="id" id="id" value="testsdfg"/>
+			<td class="input"><input type="text" name="id" id="id" value="testsdfg"/>
 			<input type="button" value="중복확인" class="btn btn-success btn-sm"
 		id="btnSearch"/>
 			</td>
