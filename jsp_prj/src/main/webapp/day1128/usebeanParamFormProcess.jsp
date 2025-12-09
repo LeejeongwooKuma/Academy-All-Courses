@@ -5,6 +5,7 @@
 <%@ include file="../fragments/siteProperty.jsp" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
+
 /* POST방식에서 한글 깨짐 방지. */
 request.setCharacterEncoding("UTF-8");
 %>
