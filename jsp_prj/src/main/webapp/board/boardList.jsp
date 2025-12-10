@@ -156,6 +156,7 @@ function checkLogin() {
 					rDTO.setTotalPage(totalPage);
 					
 					String pagination=bs.pagination(rDTO);
+					String pagination2=bs.pagination2(rDTO);
 					
 					pageContext.setAttribute("totalCount", totalCount);
 					pageContext.setAttribute("pageScale", pageScale);
@@ -165,6 +166,7 @@ function checkLogin() {
 					pageContext.setAttribute("endNum", endNum);
 					pageContext.setAttribute("boardList", boardList);
 					pageContext.setAttribute("pagination", pagination);
+					pageContext.setAttribute("pagination2", pagination2);
 					%>					
 					
 					<%-- 총 게시글의 수 : <c:out value="${ totalCount }"/><br>
@@ -230,6 +232,10 @@ function checkLogin() {
 					</div>
 					<div id="pagination" style="text-align: center;">
 					<c:out value="${ pagination }" escapeXml="false" /><!-- escapeXml은 hmtl태그를 여기서 사용할려고 해둠 -->
+					</div>
+					
+					<div id="pagination2" style="text-align: center;">
+					<c:out value="${ pagination2 }" escapeXml="false" /><!-- escapeXml은 hmtl태그를 여기서 사용할려고 해둠 -->
 					</div>
 
 				</div>
