@@ -204,7 +204,7 @@ public class BoardService {
 	
 	
 	
-	public String pagination2( RangeDTO rDTO ) {
+	public String pagination2( RangeDTO rDTO, String justify ) {
 	      StringBuilder pagination=new StringBuilder();
 	      //1. 한 화면에 보여줄 pagination의 수.
 	      int pageNumber=3;
@@ -275,8 +275,14 @@ public class BoardService {
 	         nextMark.append("'>Next</a></li>");
 	         
 	      }//end if
+	      
+	      if(!("center".equals(justify) || "left".equals(justify))) {
+	         justify="left";
+	      }
 	      pagination.append("<nav aria-label='...'>")
-	      .append("  <ul class='pagination'>");
+	      .append("  <ul class='pagination d-flex justify-content-")
+	      .append(justify)
+	      .append("'>");
 	      pagination.append(prevMark).append(pageLink).append(nextMark);
 	      pagination.append("</ul>")
 	      .append("  </nav>");
