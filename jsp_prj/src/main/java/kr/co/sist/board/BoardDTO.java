@@ -7,8 +7,6 @@ public class BoardDTO {
 	private String title	,content, ip, id;	
 	private Date input_date;
 	public BoardDTO() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public BoardDTO(int num, int cnt, String title, String content, String ip, String id, Date input_date) {
 		super();

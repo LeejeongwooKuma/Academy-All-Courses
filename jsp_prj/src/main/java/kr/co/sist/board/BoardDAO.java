@@ -1,5 +1,7 @@
 package kr.co.sist.board;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +25,7 @@ public class BoardDAO {
 		return bDAO;
 	}//getInstance
 	
-	public int selectBoardTotalCnt() throws SQLException {
+	public int selectBoardTotalCnt(RangeDTO rDTO) throws SQLException {
 		int totalCnt = 0;
 		
 		DbConn dbCon = DbConn.getInstance("jdbc/dbcp");
@@ -38,10 +40,21 @@ public class BoardDAO {
 		//3.DataSource에서 Connection 얻기
 			con=dbCon.getConn();//1,2,3번 끝.
 		//4.쿼리문 생성객체 얻기
-			String selectTotal="select count(*) cnt from board";
-			pstmt=con.prepareStatement(selectTotal);
+			//검색 키워드가 없다면 모든 글의 총 개수 검색.
+			StringBuilder selectTotal=new StringBuilder();
+			selectTotal.append("select count(*) cnt from board");
+			//dynamic query : 검색키워드가 있다면 검색 키워드에 해당하는 글의 개수 검색.
+			if( rDTO.getKeyword() != null && !rDTO.getKeyword().isEmpty() ) {
+				selectTotal.append(" where instr(")
+				.append(rDTO.getFieldStr()).append(",?) != 0"); //0이 아니다-> index가 존재한다.
+			}//end if
+			pstmt=con.prepareStatement(selectTotal.toString());
 		//5.바인드변수 값 설정
-		//6.쿼리문 수행 후 결과 얻기
+			if( rDTO.getKeyword() != null && !rDTO.getKeyword().isEmpty() ) {
+				pstmt.setString(1, rDTO.getKeyword());
+			}//end if
+
+			//6.쿼리문 수행 후 결과 얻기
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -76,14 +89,24 @@ public class BoardDAO {
 			.append(" from(select num, title, input_date, ip, cnt, id, ")
 			.append(" row_number() over(order by input_date desc) rnum ")
 			.append(" from	board ");
-			//dynamic query
+			//dynamic query : 검색키워드가 있다면 검색 키워드에 해당하는 글의 개수 검색.
+			if( rDTO.getKeyword() != null && !rDTO.getKeyword().isEmpty() ) {
+				selectBoard.append(" where instr(")
+				.append(rDTO.getFieldStr()).append(",?) != 0"); //0이 아니다-> index가 존재한다.
+			}//end if
+			
 			selectBoard
 			.append(") where rnum between ? and ?");
 			
 			pstmt=con.prepareStatement(selectBoard.toString());
 		//5. 바인드변수 값 설정
-			pstmt.setInt(1, rDTO.getStartNum());
-			pstmt.setInt(2, rDTO.getEndNum());
+			int pstmtIdx=0;
+			if( rDTO.getKeyword() != null && !rDTO.getKeyword().isEmpty() ) {
+				pstmt.setString(++pstmtIdx, rDTO.getKeyword());
+			}//end if 
+				pstmt.setInt(++pstmtIdx, rDTO.getStartNum());
+				pstmt.setInt(++pstmtIdx, rDTO.getEndNum());
+			
 		//6. 조회결과 얻기
 			BoardDTO bDTO=null;
 			
@@ -132,5 +155,99 @@ public class BoardDAO {
 			dbCon.dbClose(null, pstmt, con);
 		}//end finally
 	}//insertBoard
+	
+	public BoardDTO selectBoardDetail(int num) throws SQLException {
+		BoardDTO bDTO=null;
+		
+		DbConn dbCon = DbConn.getInstance("jdbc/dbcp");
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+		//1.JNDI 사용객체 생성
+		//2.DataSource 얻기
+		//3.DataSource에서 Connection 얻기
+			con=dbCon.getConn();//1,2,3번 끝.
+		//4.쿼리문 생성객체 얻기
+			StringBuilder selectDetail= new StringBuilder();
+			selectDetail
+			.append("select title, content, input_date, ip, cnt, id ")
+			.append("from board ")
+			.append("where num= ?");
+			
+			pstmt=con.prepareStatement(selectDetail.toString());
+		//5.바인드변수 값 설정
+			pstmt.setInt(1, num);
+		//6.쿼리문 수행 후 결과 얻기
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bDTO=new BoardDTO();
+				bDTO.setTitle(rs.getString("title"));
+				BufferedReader br=null;
+				StringBuilder content = new StringBuilder();
+				try {
+				br = new BufferedReader(rs.getClob("content").getCharacterStream());
+				String readLine="";
+				while( (readLine=br.readLine()) != null) {
+					content.append(readLine);
+				}//end while
+				if(br != null) {br.close();}//end if
+				}catch(IOException ie) {
+					ie.printStackTrace();
+				}catch(NullPointerException npe) {
+					npe.printStackTrace();
+				}//end catch
+				bDTO.setContent(content.toString());
+			}//end if
+				bDTO.setInput_date(rs.getDate("input_date"));
+				bDTO.setId(rs.getString("id"));
+				bDTO.setIp(rs.getString("ip"));
+				bDTO.setCnt(rs.getInt("cnt"));
+		}finally {
+		//7.연결 끊기.
+			dbCon.dbClose(rs, pstmt, con);
+		}//end finally
+		return bDTO;
+		
+	}//selectBoardDetail
+	
+	/**
+	 * 게시글 읽기했을 때 cnt 증가
+	 * @param num
+	 * @throws SQLException
+	 */
+	public void updateBoardCnt(int num) throws SQLException {
+		
+		DbConn dbCon = DbConn.getInstance("jdbc/dbcp");
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+		//1.JNDI 사용객체 생성
+		//2.DataSource 얻기
+		//3.DataSource에서 Connection 얻기
+			con=dbCon.getConn();//1,2,3번 끝.
+		//4.쿼리문 생성객체 얻기
+			StringBuilder updateCnt= new StringBuilder();
+			updateCnt
+			.append("update board ")
+			.append("set cnt=cnt+1 ")
+			.append("where num= ?");
+			
+			pstmt=con.prepareStatement(updateCnt.toString());
+		//5.바인드변수 값 설정
+			pstmt.setInt(1, num);
+		//6.쿼리문 수행 후 결과 얻기
+			pstmt.executeUpdate();
+			
+		}finally {
+		//7.연결 끊기.
+			dbCon.dbClose(null, pstmt, con);
+		}//end finally
+	}//updateBoardCnt
 	
 }//class

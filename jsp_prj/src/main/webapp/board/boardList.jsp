@@ -1,3 +1,4 @@
+<%@page import="kr.co.sist.board.BoardService"%>
 <%@page import="kr.co.sist.board.BoardDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.co.sist.board.BoardDAO"%>
@@ -22,17 +23,23 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 
-
 <meta name="theme-color" content="#712cf9">
 <link href="http://192.168.10.76/jsp_prj/common/css/carousel.css" rel="stylesheet">
 <jsp:include page="../fragments/bootstrap_css.jsp"/>
-
 
 <style type="text/css">
 #wrap{  margin: 0px auto; width: 1200px; height: 1000px;}
 #header{  height: 150px; }/* 부모창 크기 따라가서 width은 안 줘도 괜찮음. */
 #container{  height: 700px; }
 #footer{  height: 150px; }
+
+a{ color: #000000; text-decoration: none;}
+a:hover{ color: #292929; text-decoration: none }
+
+/* 게시판 pagination 디자인 */
+.prevMark, .nextMark{ color:#FF0000; }
+.currentPage{ font-size: 20px; font-weight: bold;}
+.notCurrentPage{ font-size: 18px; font-weight: normal;}
 </style>
 <!-- jQuery CDN 시작 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -42,7 +49,31 @@ $(function(){
 	$("#btnWrite").click(function(){
 		checkLogin();
 	});
+	
+	$("#btnSearch").click(function(){
+			searchBoard();
+	});//click
+	
+	$("#keyword").keyup(function(evt){
+		if(evt.which == 13) {
+			searchBoard();
+		}//end if
+	});//keyup
+	
+	//검색 후 검색값이 창에 그대로 있게 하자.
+	<c:if test="${ not empty param.keyword }">//keyword가 있으면
+	//<select>의 option을 선택 상태로
+	$("#field").val("${param.field}")
+	//<input에 값 설정
+	$("#keyword").val("${param.keyword}")
+	</c:if>
 });//ready
+
+function searchBoard() {
+	if($("#keyword").val().trim() != "") {
+		$("#boardSearchFrm").submit();
+	}//end if
+}//searchBoard
 
 function checkLogin() {
 	if( ${ sessionScope.userId == null }) {
@@ -78,21 +109,21 @@ function checkLogin() {
 					<jsp:useBean id="rDTO" class="kr.co.sist.board.RangeDTO" scope="page"/>
 					<jsp:setProperty property="*" name="rDTO"/>
 					<%
-					BoardDAO bDAO = BoardDAO.getInstance();
+					BoardService bs = BoardService.getInstance();
 					
 					//1. 총 게시글의 수
-					int totalCount = bDAO.selectBoardTotalCnt();
+					int totalCount = bs.totalCnt(rDTO);
 					
 					//2. 한 화면에 보여줄 게시글의 수
-					int pageScale=10;
+					int pageScale=bs.pageScale();
+					
 					//3. 총 페이지의 수
 					/* int totalPage=totalCount/pageScale;
 					//31건을 10개씩 보여줄려면 총 4페이지가 필요 => 나머지가 존재하면 +1페이지
 					if(totalCount % pageScale != 0) {//딱 떨어지지 않으면
 						totalPage++;
 					}//end if */
-					int totalPage = (int)Math.ceil((double)totalCount/pageScale);
-							
+					int totalPage = bs.totalPage(totalCount, pageScale);
 							
 					//4. 시작번호
 					String tempPage=request.getParameter("currentPage");
@@ -105,11 +136,10 @@ function checkLogin() {
 							
 						}//end catch
 					}//end if
-					int startNum=1;
 					//1페이지 클릭 : 1 * 10 - 10 +1 = 1, 2페이지 클릭 : 2 * 10 - 10 +1 = 11
-					startNum = currentPage*pageScale-pageScale+1;
+					int startNum = bs.startNum(currentPage, pageScale);
 					//5. 끝번호
-					int endNum=startNum+pageScale-1;
+					int endNum=bs.endNum(startNum, pageScale);
 					
 					//rDTO는 시작번호와 끝번호를 web parameter로 받지 않고, 
 					//연산된 값(1항~5항)으로 설정한다.
@@ -118,16 +148,14 @@ function checkLogin() {
 					rDTO.setEndNum(endNum);
 					
 					//6. 시작번호와 끝 번호사이에 해당하는 모든 게시글을 조회.
-					List<BoardDTO> boardList = bDAO.selectRangeBoard(rDTO);
+					List<BoardDTO> boardList = bs.searchBoardList(rDTO);
 					
 					//글 제목이 20글자를 초과하면 19자까지만 보여주고 나머지는 ...으로 처리.
-					String title="";
-					for(BoardDTO bDTO : boardList){
-						title=bDTO.getTitle();
-						if(title.length() > 19) {
-							bDTO.setTitle(title.substring(0,20)+"...");
-						}//end if
-					}//end for
+					bs.titleSubStr(boardList);
+					rDTO.setUrl("boardList.jsp");
+					rDTO.setTotalPage(totalPage);
+					
+					String pagination=bs.pagination(rDTO);
 					
 					pageContext.setAttribute("totalCount", totalCount);
 					pageContext.setAttribute("pageScale", pageScale);
@@ -136,6 +164,7 @@ function checkLogin() {
 					pageContext.setAttribute("startNum", startNum);
 					pageContext.setAttribute("endNum", endNum);
 					pageContext.setAttribute("boardList", boardList);
+					pageContext.setAttribute("pagination", pagination);
 					%>					
 					
 					<%-- 총 게시글의 수 : <c:out value="${ totalCount }"/><br>
@@ -145,7 +174,7 @@ function checkLogin() {
 					시작 번호 : ${ startNum }<br>
 					끝 번호 : ${ endNum }<br> --%>
 					<%-- 총 <c:out value="${ totalPage }"/>페이지 중 <c:out value="${ currentPage }"/>페이지 입니다. --%>
-					<div id="boardList">
+					<div id="boardList" style="height: 500px;">
 					
 					<input type="button" value="글쓰기" 
 					class="btn btn-success btn-sm" id="btnWrite"/>
@@ -170,7 +199,7 @@ function checkLogin() {
 					<c:forEach var="bDTO" items="${ boardList }" varStatus="i">
 					<tr>
 					<td><c:out value="${totalCount-(currentPage-1)*pageScale-i.index}"/></td>
-					<td><c:out value="${ bDTO.title }"/></td>
+					<td><a href="boardDetailFrm.jsp?num=${ bDTO.num }"><c:out value="${ bDTO.title }"/></a></td>
 					<td><c:out value="${ bDTO.id }"/></td>
 					<td><c:out value="${ bDTO.cnt }"/></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd a HH:mm" value="${ bDTO.input_date }"/></td>
@@ -179,11 +208,30 @@ function checkLogin() {
 					</tbody>
 					</table>
 					</div>
+					<div id="boardSearchDiv" style="text-align:center;">
+					<form action="boardList.jsp" id="boardSearchFrm">
+					<select name="field" id="field" style="height:30px;">
+					<option value="1">제목</option>
+					<option value="2">내용</option>
+					<option value="3">작성자</option>
+					</select>
+					<input type="text" name="keyword" id="keyword" style="height:30px;"/>
+					<input type="hidden" name="currentPage" value="${ tempPage }"/>
+					<input type="text" style="display: none"/>
+					<input type="button" value="검색" id="btnSearch" class="btn btn-success"/>
+					</form>
+					</div>
+					
 					<div id="pagination">
 					<c:forEach var="tPage" begin="1" end="${ totalPage }" step="1">
-					<a href="boardList.jsp?currentPage=${ tPage }">[${ tPage }]</a>
+					<!-- filed,keyword를 줘야지 검색 후 다른 페이지 누르면 잘 찾아짐.안 주면 검색 후 페이지 바꾸면 리셋;; -->
+					[<a class="a" href="boardList.jsp?currentPage=${ tPage }&field=${param.field}&keyword=${param.keyword}">${ tPage }</a>]
 					</c:forEach>
 					</div>
+					<div id="pagination" style="text-align: center;">
+					<c:out value="${ pagination }" escapeXml="false" /><!-- escapeXml은 hmtl태그를 여기서 사용할려고 해둠 -->
+					</div>
+
 				</div>
 			</div>
 			<hr class="featurette-divider">
