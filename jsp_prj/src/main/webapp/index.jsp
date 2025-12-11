@@ -59,10 +59,16 @@ $(function(){
 			<div class="row featurette">
 				<div class="col-md-7">
 					사용자 메인 페이지<br>
-					사용자에게 제공할 contents,,,,<br>
+					사용자에게 제공할 contents,,,,
 					<c:choose>
 					<c:when test="${ not empty sessionScope.userId }">
-					<c:out value="${ userId }"/>( <c:out value="${ userName }"/> )
+					<br>
+					<img src="${CommonURL}/upload/${ sessionScope.userProfile }" id="preview" 
+					style="width: 100px; height:100px; border-radius:50px;">
+					<br>
+					<c:out value="${ userId }"/>
+					( 
+					<a href="${CommonURL}/mypage/mypage.jsp"><c:out value="${ userName }"/></a> )
 					님 안녕하세요? <a href="${CommonURL }/login/logout.jsp">로그아웃</a> 
 					<br>
 					<a href="${CommonURL}/board/boardList.jsp">게시판</a>

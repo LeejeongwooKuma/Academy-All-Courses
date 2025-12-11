@@ -1,39 +1,7 @@
-<%@page import="day1128.ParamDTO"%>
-<%@page import="kr.co.sist.user.member.WebMemberLoginService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../fragments/siteProperty.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-//POST방식 일때만 요청되어야한다.
-if( !"POST".equals(request.getMethod())) {
-%>
-<c:redirect url="${ CommonURL }/index.jsp"/>
-<%	
-}//end if
-%>
-<!-- 로그인에 필요한 아이디와 비밀번호 파라메터 받기 -->
-<jsp:useBean id="lDTO" class="kr.co.sist.user.member.LoginDTO" scope="page"/>
-<jsp:setProperty name="lDTO" property="*"/>
-<%
-WebMemberLoginService wmls = WebMemberLoginService.getInstance();
-ParamDTO pDTO=wmls.searchLogin(lDTO, spVO.getKey());
-
-if( pDTO != null) {//로그인 성공
-	//세션에 값을 할당.
-	session.setAttribute("userId", pDTO.getId());
-	session.setAttribute("userName", pDTO.getName());
-	session.setAttribute("userBirth", pDTO.getBirth());
-	session.setAttribute("userProfile", pDTO.getProfile());
-	//접속 history 남기고
-	//페이지를 이동
-%>
-<c:redirect url="${ CommonURL }/index.jsp"/>
-<%
-}//end if
-%>
-
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
@@ -42,8 +10,7 @@ if( pDTO != null) {//로그인 성공
 <meta name="description" content="">
 <title>JSP 템플릿</title>
 <script src="http://192.168.10.76/jsp_prj/common/js/color-modes.js"></script>
-<link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
-	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB">
+
 <link rel="shortcut icon" href="http://192.168.10.76/jsp_prj/common/images/favicon2.ico"/>
 
 <!-- bootstrap CDN 시작-->
@@ -90,8 +57,7 @@ $(function(){
 			<hr class="featurette-divider">
 			<div class="row featurette">
 				<div class="col-md-7">
-					아이디나 비밀번호를 확인해주세요.<br>
-					<a href="javascript:history.back()">다시 로그인</a>				
+					회원 가입 양식					
 				</div>
 			</div>
 			<hr class="featurette-divider">

@@ -156,7 +156,7 @@ function checkLogin() {
 					rDTO.setTotalPage(totalPage);
 					
 					String pagination=bs.pagination(rDTO);
-					String pagination2=bs.pagination2(rDTO);
+					String pagination2=bs.pagination2(rDTO,"center");
 					
 					pageContext.setAttribute("totalCount", totalCount);
 					pageContext.setAttribute("pageScale", pageScale);
@@ -176,7 +176,7 @@ function checkLogin() {
 					시작 번호 : ${ startNum }<br>
 					끝 번호 : ${ endNum }<br> --%>
 					<%-- 총 <c:out value="${ totalPage }"/>페이지 중 <c:out value="${ currentPage }"/>페이지 입니다. --%>
-					<div id="boardList" style="height: 500px;">
+					<div id="boardList" style="min-height: 500px;">
 					
 					<input type="button" value="글쓰기" 
 					class="btn btn-success btn-sm" id="btnWrite"/>

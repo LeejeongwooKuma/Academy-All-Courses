@@ -317,4 +317,28 @@ public class BoardService {
 		}//end catch
 	}//modifyBoardCnt
 	
+	public boolean modifyBoard(BoardDTO bDTO) {
+		boolean flag=false;
+		
+		BoardDAO bDAO = BoardDAO.getInstance();
+		try {
+			flag = bDAO.updateBoard(bDTO) == 1;//update는 1개만 되고 성공하거나 실패이기에 1로 확인.
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
+		return flag;
+	}//modifyBoard
+	
+	public boolean removeBoard(BoardDTO bDTO) {
+		boolean flag=false;
+		
+		BoardDAO bDAO = BoardDAO.getInstance();
+		try {
+			flag = bDAO.deleteBoard(bDTO) == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
+		return flag;
+	}//removeBoard
+	
 }//class

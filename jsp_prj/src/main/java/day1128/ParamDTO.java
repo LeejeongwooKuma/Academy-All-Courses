@@ -3,12 +3,12 @@ package day1128;
 import java.util.Arrays;
 
 public class ParamDTO {
-	private String id, pass, birth, loc, intro , code,name, email, ip, secChUaPlatform, userAgents;
+	private String id, pass, birth, loc, intro , code,name, email, ip, secChUaPlatform, userAgents,profile;
 	private String[] language;
 	public ParamDTO() {
 	}
 	public ParamDTO(String id, String pass, String birth, String loc, String intro, String code, String name,
-			String email, String ip, String secChUaPlatform, String userAgents, String[] language) {
+			String email, String ip, String secChUaPlatform, String userAgents, String profile, String[] language) {
 		super();
 		this.id = id;
 		this.pass = pass;
@@ -21,6 +21,7 @@ public class ParamDTO {
 		this.ip = ip;
 		this.secChUaPlatform = secChUaPlatform;
 		this.userAgents = userAgents;
+		this.profile = profile;
 		this.language = language;
 	}
 	public String getId() {
@@ -89,6 +90,12 @@ public class ParamDTO {
 	public void setUserAgents(String userAgents) {
 		this.userAgents = userAgents;
 	}
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	public String[] getLanguage() {
 		return language;
 	}
@@ -99,6 +106,8 @@ public class ParamDTO {
 	public String toString() {
 		return "ParamDTO [id=" + id + ", pass=" + pass + ", birth=" + birth + ", loc=" + loc + ", intro=" + intro
 				+ ", code=" + code + ", name=" + name + ", email=" + email + ", ip=" + ip + ", secChUaPlatform="
-				+ secChUaPlatform + ", userAgents=" + userAgents + ", language=" + Arrays.toString(language) + "]";
+				+ secChUaPlatform + ", userAgents=" + userAgents + ", profile=" + profile + ", language="
+				+ Arrays.toString(language) + "]";
 	}
+	
 }

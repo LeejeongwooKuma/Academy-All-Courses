@@ -85,19 +85,31 @@ $(function(){
 <script type="text/javascript">
 
 $(function(){
-	$("#btnWrite").click(function(){
-		//제목과 내용에 값이 있는지 유효성 검증
-		if($("#title").val() == "") {
-			alert("제목은 필수 입력입니다.");
-			$("#title").focus();
-			return;
-		}//end if
+	$("#btnModify").click(function(){
+		
+		if(confirm("글을 정말 수정하시겠습니까?")){
+			
+		
+		
+		//내용에 값이 있는지 유효성 검증
 		if($("#content").val() == "" || $("#content").val() == "<p></p>") {
 			alert("내용은 필수 입력입니다.");
 			return;
 		}//end if
 		
+		$("#frm")[0].action="modifyBoardProcess.jsp";//jQuery에서 자바스크립트 객체에 접근할려면 배열로 접근해야함. jQuery가 찾은 frm이 배열로 나옴.
+			
 		$("#frm").submit();
+		}//end if
+	});//click
+	$("#btnDelete").click(function(){
+		
+		if(confirm("글을 정말 삭제하시겠습니까?")){
+		
+		$("#frm")[0].action="removeBoardProcess.jsp";//jQuery에서 자바스크립트 객체에 접근할려면 배열로 접근해야함. jQuery가 찾은 frm이 배열로 나옴.
+			
+		$("#frm").submit();
+		}//end if
 	});//click
 });//ready
 
@@ -146,6 +158,7 @@ $(function(){
 					<tr>
 					<td colspan="2" style="text-align: center;">
 					<c:if test="${ sessionScope.userId eq bDTO.id}">
+					<input type="hidden" name="num" value="${param.num }"/>
 					<button onclick="return false" class="btn btn-success" id="btnModify">글수정</button>
 					<button onclick="return false" class="btn btn-success" id="btnDelete">글삭제</button>
 					</c:if>
