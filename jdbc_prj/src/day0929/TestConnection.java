@@ -37,6 +37,7 @@ public class TestConnection {
 			
 			while( rs.next() ) {
 				System.out.println("☆" + rs.getInt("empno") + "☆");
+				System.out.println("테스트");
 			}//end while
 		} catch (SQLException e) {
 			e.printStackTrace();
