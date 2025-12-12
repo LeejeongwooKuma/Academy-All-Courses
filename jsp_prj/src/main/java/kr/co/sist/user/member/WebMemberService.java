@@ -4,7 +4,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import day1128.ParamDTO;
+import kr.co.sist.chipher.DataDecryption;
 import kr.co.sist.chipher.DataEncryption;
+import kr.co.sist.siteProperty.SiteProperty;
 
 public class WebMemberService {
 	private static WebMemberService wmService;
@@ -85,4 +87,58 @@ public class WebMemberService {
 		
 		
 	}//addMember
-}
+	
+	public ParamDTO searchMember( String id ) {
+		ParamDTO pDTO = null;
+		WebMemberDAO wmDAO = WebMemberDAO.getInstance();
+		//SiteProperty에 있는 key 가져오기(복호화)
+		String key = SiteProperty.spVO.getKey();
+		System.out.println("------"+key);
+		try {
+			pDTO=wmDAO.selectMember(id);
+			if(pDTO != null) {
+			//이름과 이메일은 암호화되어 있다. => 복호화 필요
+			DataDecryption dd = new DataDecryption(key);
+			pDTO.setName(dd.decrypt(pDTO.getName()));
+			pDTO.setEmail(dd.decrypt(pDTO.getEmail()));
+			}//end if
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return pDTO;
+	}//searchMember
+	
+	
+public boolean modifyMember(ParamDTO pDTO) {
+		
+		boolean flag=false;
+		WebMemberDAO wmDAO=WebMemberDAO.getInstance();
+		
+		
+		String key=SiteProperty.spVO.getKey();//키는 반드시 16글자
+		
+		DataEncryption de = new DataEncryption(key);
+		if(pDTO.getEmail() != null && !"".equals(pDTO.getEmail()) ) {
+			try {
+				pDTO.setEmail( de.encrypt(pDTO.getEmail()) );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}//end catch
+		}//end if
+		
+		try {
+			//회원 정보 1개
+			flag=wmDAO.updateMember(pDTO)==1;
+			System.out.println("pDTO = " + pDTO);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
+		return flag;
+		
+	}//modifyMember
+	
+	
+}//class

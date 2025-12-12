@@ -1,14 +1,17 @@
 package day1128;
 
+import java.sql.Date;
 import java.util.Arrays;
 
 public class ParamDTO {
 	private String id, pass, birth, loc, intro , code,name, email, ip, secChUaPlatform, userAgents,profile;
 	private String[] language;
+	private Date inputDate;
 	public ParamDTO() {
 	}
 	public ParamDTO(String id, String pass, String birth, String loc, String intro, String code, String name,
-			String email, String ip, String secChUaPlatform, String userAgents, String profile, String[] language) {
+			String email, String ip, String secChUaPlatform, String userAgents, String profile, String[] language,
+			Date inputDate) {
 		super();
 		this.id = id;
 		this.pass = pass;
@@ -23,6 +26,7 @@ public class ParamDTO {
 		this.userAgents = userAgents;
 		this.profile = profile;
 		this.language = language;
+		this.inputDate = inputDate;
 	}
 	public String getId() {
 		return id;
@@ -102,12 +106,18 @@ public class ParamDTO {
 	public void setLanguage(String[] language) {
 		this.language = language;
 	}
+	public Date getInputDate() {
+		return inputDate;
+	}
+	public void setInputDate(Date inputDate) {
+		this.inputDate = inputDate;
+	}
 	@Override
 	public String toString() {
 		return "ParamDTO [id=" + id + ", pass=" + pass + ", birth=" + birth + ", loc=" + loc + ", intro=" + intro
 				+ ", code=" + code + ", name=" + name + ", email=" + email + ", ip=" + ip + ", secChUaPlatform="
 				+ secChUaPlatform + ", userAgents=" + userAgents + ", profile=" + profile + ", language="
-				+ Arrays.toString(language) + "]";
+				+ Arrays.toString(language) + ", inputDate=" + inputDate + "]";
 	}
 	
 }

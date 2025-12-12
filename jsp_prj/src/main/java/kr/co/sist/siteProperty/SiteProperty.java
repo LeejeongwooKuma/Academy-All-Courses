@@ -19,7 +19,8 @@ public class SiteProperty {
 		
 		try {
 			con=db.getConn();
-			String selectSiteInfo = "select PROTOCOL, SERVER_NAME, CONTEXT_ROOT, MANAGE_PATH, KEY, TITLE from site_property";
+			//마지막에 where num=?의 숫자로 개발환경마다 쓸 SiteProperty를 바꿔줄 수 있음.
+			String selectSiteInfo = "select PROTOCOL, SERVER_NAME, CONTEXT_ROOT, MANAGE_PATH, KEY, TITLE from site_property where num=1";
 			
 			pstmt=con.prepareStatement(selectSiteInfo);
 			rs=pstmt.executeQuery();
