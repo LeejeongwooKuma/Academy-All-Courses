@@ -122,7 +122,7 @@ $(function(){
 					<form action="uploadFrmProcess.jsp" method="post" enctype="multipart/form-data" id="frm">
 					<label>업로더</label>
 					<input type="text" name="uploader" id="uploader"><br/>
-					<label>대상 연령</label>
+					<label>대상 연령.</label>
 					<c:forEach var="age" begin="10" end="80" step="10">
 					<input type="checkbox" name="age" value="${ age }">
 					<c:out value="${ age }대"/>
