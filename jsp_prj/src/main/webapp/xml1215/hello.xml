@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <a> -->
+<root> 
+	<name lastname="민" nick="">민병조</name>
+	<!-- <name lastname="민"nick="">민병조</name> 3. 속성은 반드시 공백을 가져야한다. -->
+	<addr>경기도 의정부시</addr>
+	<!-- <addr>경기도 의정부시</Addr> 1. XML : 대.소문자를 가린다. -->
+	<age>25</age>
+</root>
+<!-- <root> 2. 부모노드는 반드시 하나만! 이름이 정해져 있는건 아님. 만약 <a>가 없다면 root가 2갠데, 서로 부모니 에러가 나옴.
+
+</root> -->
+<!-- </a> -->
