@@ -40,6 +40,7 @@ $(function(){
 });//ready
 /* 다음 지도 API */
 </script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=337c74491432a083ac55c543d0c0abd3"></script>
 <script>
 window.onload=function(){
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
