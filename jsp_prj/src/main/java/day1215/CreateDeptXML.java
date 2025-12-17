@@ -1,9 +1,7 @@
 package day1215;
 
 import java.io.FileOutputStream;
-import java.io.IOError;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.jsp.JspWriter;
@@ -14,7 +12,6 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import kr.co.sist.emp.DeptDTO;
-import kr.co.sist.emp.EmployeeDAO;
 
 public class CreateDeptXML {
 	
