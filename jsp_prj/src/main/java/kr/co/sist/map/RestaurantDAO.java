@@ -57,7 +57,11 @@ public class RestaurantDAO {
 			while (rs.next()) {
 				rDTO = new RestaurantDTO();
 				rDTO.setRest_num(rs.getInt("rest_num"));
-
+				rDTO.setRest_name(rs.getString("rest_name"));
+				rDTO.setMenu(rs.getString("menu"));
+				rDTO.setLat(rs.getDouble("lat"));
+				rDTO.setLng(rs.getDouble("lng"));
+				rDTO.setInput_date(rs.getDate("input_date"));
 				list.add(rDTO);
 			} // end while
 		} finally {
