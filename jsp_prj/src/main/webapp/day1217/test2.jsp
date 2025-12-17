@@ -57,7 +57,7 @@ $(function(){
 			<hr class="featurette-divider">
 			<div class="row featurette">
 				<div class="col-md-7">
-					회원 가입 양식					
+					이거바뀌어야함					
 				</div>
 			</div>
 			<hr class="featurette-divider">
