@@ -171,7 +171,14 @@
       <Resource auth="Container" driverClassName="oracle.jdbc.OracleDriver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/dbcp" password="tiger" type="javax.sql.DataSource" url="jdbc:oracle:thin:@127.0.0.1:1521:orcl" username="scott"/>
       </Context>
       
-      <Context docBase="html_prj" path="/html_prj" reloadable="true" source="org.eclipse.jst.jee.server:html_prj"/><Context docBase="sist_myLab_prj2_movie" path="/sist_myLab_prj2_movie" reloadable="true" source="org.eclipse.jst.jee.server:sist_myLab_prj2_movie"/><Context docBase="sist_prj2_movieWeb" path="/sist_prj2_movieWeb" reloadable="true" source="org.eclipse.jst.jee.server:sist_prj2_movieWeb"/></Host>
+      <Context docBase="html_prj" path="/html_prj" reloadable="true" source="org.eclipse.jst.jee.server:html_prj"/>
+      
+      
+      
+      <Context docBase="sist_prj2_movieWeb" path="/sist_prj2_movieWeb" reloadable="true" source="org.eclipse.jst.jee.server:sist_prj2_movieWeb">
+      <Resource auth="Container" driverClassName="oracle.jdbc.OracleDriver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/dbcp" password="tiger" type="javax.sql.DataSource" url="jdbc:oracle:thin:@127.0.0.1:1521:orcl" username="scott"/>
+      </Context>
+      </Host>
     </Engine>
   </Service>
 </Server>
