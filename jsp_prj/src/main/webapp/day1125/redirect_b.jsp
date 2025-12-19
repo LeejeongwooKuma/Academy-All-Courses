@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <title>JSP 템플릿</title>
-<script src="http://192.168.10.76/jsp_prj/common/js/color-modes.js"></script>
+<script src="${CommonURL}/common/js/color-modes.js"></script>
 <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB">
-<link rel="shortcut icon" href="http://192.168.10.76/jsp_prj/common/images/favicon2.ico"/>
+<link rel="shortcut icon" href="${CommonURL}/common/images/favicon2.ico"/>
 
 <!-- bootstrap CDN 시작-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -19,7 +19,7 @@
 
 
 <meta name="theme-color" content="#712cf9">
-<link href="http://192.168.10.76/jsp_prj/common/css/carousel.css" rel="stylesheet">
+<link href="${CommonURL}/common/css/carousel.css" rel="stylesheet">
 <style>
 .bd-placeholder-img {
 	font-size: 1.125rem;
@@ -231,7 +231,7 @@ $(function(){
 			<div class="row featurette">
 				<div class="col-md-7">
 				세션값 : <%= session.getAttribute("name") %>
-					<a href="http://localhost/jsp_prj/login/loginFrm.jsp">로그인</a>					
+					<a href="${CommonURL}/login/loginFrm.jsp">로그인</a>					
 				</div>
 			</div>
 			<hr class="featurette-divider">

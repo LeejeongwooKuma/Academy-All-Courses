@@ -30,11 +30,12 @@ public class SiteProperty {
 				spVO = new SitePropertyVO(
 						rs.getString("PROTOCOL"), 
 						rs.getString("SERVER_NAME"), 
-						rs.getString("CONTEXT_ROOT"), 
+						rs.getString("CONTEXT_ROOT")==null?"":rs.getString("CONTEXT_ROOT"), 
 						rs.getString("MANAGE_PATH"), 
 						rs.getString("KEY"), 
 						rs.getString("TITLE"));
 			}//end if
+			
 			
 		}catch(SQLException se) {
 			se.printStackTrace();

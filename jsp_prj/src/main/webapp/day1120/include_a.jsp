@@ -6,7 +6,7 @@
 <html>
 <head>
 <link rel="shortcut icon"
-	href="http://192.168.10.76/jsp_prj/common/images/favicon.ico">
+	href="${CommonURL}/common/images/favicon.ico">
 <meta charset="UTF-8">
 <title><%=sessionId%>님 안녕하세요? </title>
 <!-- 내가 만든 CSS -->
