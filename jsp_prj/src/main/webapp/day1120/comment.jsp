@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" href="http://192.168.10.76/jsp_prj/common/images/favicon.ico">
+<link rel="shortcut icon" href="${CommonURL}/common/images/favicon.ico">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 내가 만든 CSS -->

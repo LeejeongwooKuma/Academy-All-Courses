@@ -18,11 +18,11 @@ if (new Random().nextBoolean()) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <title>JSP 템플릿</title>
-<script src="http://192.168.10.76/jsp_prj/common/js/color-modes.js"></script>
+<script src="${CommonURL}/common/js/color-modes.js"></script>
 <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB">
 <link rel="shortcut icon"
-	href="http://192.168.10.76/jsp_prj/common/images/favicon2.ico" />
+	href="${CommonURL}/common/images/favicon2.ico" />
 
 <!-- bootstrap CDN 시작-->
 <link
@@ -38,7 +38,7 @@ if (new Random().nextBoolean()) {
 
 
 <meta name="theme-color" content="#712cf9">
-<link href="http://192.168.10.76/jsp_prj/common/css/carousel.css"
+<link href="${CommonURL}/common/css/carousel.css"
 	rel="stylesheet">
 <jsp:include page="../fragments/bootstrap_css.jsp" />
 

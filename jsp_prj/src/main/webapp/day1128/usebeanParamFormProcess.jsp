@@ -19,7 +19,7 @@ request.setCharacterEncoding("UTF-8");
 <script src="${ CommonURL }/common/js/color-modes.js"></script>
 <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB">
-<link rel="shortcut icon" href="http://192.168.10.76/jsp_prj/common/images/favicon2.ico"/>
+<link rel="shortcut icon" href="${CommonURL}/common/images/favicon2.ico"/>
 
 <!-- bootstrap CDN 시작-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">

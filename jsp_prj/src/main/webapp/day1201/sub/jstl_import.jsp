@@ -8,10 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <title>JSP 템플릿</title>
-<script src="http://192.168.10.76/jsp_prj/common/js/color-modes.js"></script>
+<script src="${CommonURL}/common/js/color-modes.js"></script>
 <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB">
-<link rel="shortcut icon" href="http://192.168.10.76/jsp_prj/common/images/favicon2.ico"/>
+<link rel="shortcut icon" href="${CommonURL}/common/images/favicon2.ico"/>
 
 <!-- bootstrap CDN 시작-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -20,9 +20,9 @@
 
 
 <meta name="theme-color" content="#712cf9">
-<link href="http://192.168.10.76/jsp_prj/common/css/carousel.css" rel="stylesheet">
+<link href="${CommonURL}/common/css/carousel.css" rel="stylesheet">
 <%-- <jsp:include page="../fragments/bootstrap_css.jsp"/> --%>
-<c:import url="http://localhost/jsp_prj/fragments/bootstrap_css.jsp"/>
+<c:import url="${CommonURL}/fragments/bootstrap_css.jsp"/>
 
 
 <style type="text/css">
@@ -45,7 +45,7 @@ $(function(){
 <body>
 	<header data-bs-theme="dark">
 	<%-- <jsp:include page="../fragments/header.jsp"/> --%>
-	<c:import url="http://localhost/jsp_prj/fragments/header.jsp"/>
+	<c:import url="${CommonURL}/fragments/header.jsp"/>
 	</header>
 	<main>
 		
@@ -69,7 +69,7 @@ $(function(){
 		<!-- FOOTER -->
 		<footer class="container">
 			<%-- <jsp:include page="../fragments/footer.jsp"/> --%>
-			<c:import url="http://localhost/jsp_prj/fragments/footer.jsp"/>
+			<c:import url="${CommonURL}/fragments/footer.jsp"/>
 		</footer>
 	</main>
 
