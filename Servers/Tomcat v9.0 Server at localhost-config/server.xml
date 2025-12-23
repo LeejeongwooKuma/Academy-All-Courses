@@ -174,7 +174,7 @@
       <Context docBase="prj2_movieWeb" path="/prj2_movieWeb" reloadable="true" source="org.eclipse.jst.jee.server:prj2_movieWeb">
       <Resource auth="Container" driverClassName="oracle.jdbc.OracleDriver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/dbcp" password="tiger" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:orcl" username="scott"/>
       </Context>
-      </Host>
+      <Context docBase="mybatis_prj" path="/mybatis_prj" reloadable="true" source="org.eclipse.jst.jee.server:mybatis_prj"/></Host>
     </Engine>
   </Service>
 </Server>
