@@ -1,4 +1,4 @@
-<%@page import="kr.co.sist.board.BoardDTO"%>
+<%@page import="kr.co.sist.board.BoardDomain"%>
 <%@page import="kr.co.sist.board.BoardService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -16,7 +16,7 @@ if (num != null){//입력된 번호가 있다면
 	if(obj == null){
 	bs.modifyBoardCnt(tempNum);//조회수 증가, 세션에 값이 없을 때에만 카운트 올림.
 	}//end if
-	BoardDTO bDTO = bs.searchOneBoard(tempNum);//게시글 하나 읽기
+	BoardDomain bDTO = bs.searchOneBoard(tempNum);//게시글 하나 읽기
 	//해당 글번호의 글을 읽었음 저장.
 	session.setAttribute(String.valueOf(tempNum), true);
 	
